@@ -1,2 +1,2 @@
-# mind-the-gap
- Serious game meant to improve one's working memory
+# Mind the Gap
+ Serious game meant to improve one's working memory.
