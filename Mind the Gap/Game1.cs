@@ -14,12 +14,16 @@ namespace Mind_the_Gap
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            
+            // set window size
+            _graphics.PreferredBackBufferWidth = 1280;
+            _graphics.PreferredBackBufferHeight = 720;
         }
 
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+           
             base.Initialize();
         }
 
@@ -44,6 +48,9 @@ namespace Mind_the_Gap
 
             // TODO: Add your drawing code here
 
+            _spriteBatch.Begin(samplerState: SamplerState.PointClamp); // scaling method used for pixel-art
+
+            _spriteBatch.End();
             base.Draw(gameTime);
         }
     }
