@@ -10,9 +10,9 @@ namespace Mind_the_Gap
 {
     internal class Sprite
     {
-        public Texture2D texture;
-        public Vector2 position;
-        public Vector2 size;
+        protected Vector2 position;
+        protected Texture2D texture;
+        protected Vector2 size;
         private static readonly int SCALE = 4;
 
         public Rectangle DestinationRect

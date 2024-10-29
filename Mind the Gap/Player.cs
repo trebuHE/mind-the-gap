@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +22,9 @@ namespace Mind_the_Gap
             WALK_LEFT,
             WALK_BACK
         }
-
         private AnimationManager animationManager;
+        private Vector2 velocity;
+        private float speed = 100f;
         public Player(Texture2D texture, Vector2 position, Vector2 size) : base(texture, position, size)
         {
             animationManager = new(new Dictionary<int, Animation>() {
@@ -41,12 +43,49 @@ namespace Mind_the_Gap
 
         public override void Update(GameTime gameTime)
         {
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if(velocity.Y == 0)
+                MoveX(deltaTime);
+
+            if(velocity.X == 0)
+                MoveY(deltaTime);
+
             animationManager.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, DestinationRect, animationManager.SourceRect, Color.White);
+        }
+
+        private void MoveX(float deltaTime)
+        {
+            velocity.X = 0f;
+            if(Keyboard.GetState().IsKeyDown(Keys.D))
+            {
+                velocity.X += speed * deltaTime;
+            }
+            if(Keyboard.GetState().IsKeyDown(Keys.A))
+            {
+                velocity.X -= speed * deltaTime;
+            }
+            position.X += velocity.X;
+
+        }
+        private void MoveY(float deltaTime)
+        {
+            velocity.Y = 0f;
+            if(Keyboard.GetState().IsKeyDown(Keys.W))
+            {
+                velocity.Y -= speed * deltaTime;
+            }
+            if(Keyboard.GetState().IsKeyDown(Keys.S))
+            {
+                velocity.Y += speed * deltaTime;
+            }
+            position.Y += velocity.Y;
+
         }
     }
 }
