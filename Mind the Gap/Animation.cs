@@ -34,7 +34,6 @@ namespace Mind_the_Gap
         public void Update(GameTime gameTime)
         {
             counter += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            Console.WriteLine(counter.ToString());
             if(counter > interval)
             {
                 counter = 0;
@@ -57,6 +56,10 @@ namespace Mind_the_Gap
                 (int)frameSize.X,
                 (int)frameSize.Y);
 
+        }
+        public void Reset()
+        {
+            activeFrame = 0;
         }
     }
 }

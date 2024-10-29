@@ -14,7 +14,12 @@ namespace Mind_the_Gap
             set
             {
                 animations.TryGetValue(value, out Animation anim);
-                activeAnimation = anim;
+                Animation prev = activeAnimation;
+                if(anim != null && prev != anim)
+                {
+                    activeAnimation = anim;
+                    activeAnimation.Reset();
+                }
             }
         }
 
@@ -35,6 +40,7 @@ namespace Mind_the_Gap
         {
             this.animations = animations;
             ActiveAnimation = 0;
+            activeAnimation = this.animations[0];
         }
 
         public void Update(GameTime gameTime)
