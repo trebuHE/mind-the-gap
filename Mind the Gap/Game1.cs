@@ -10,6 +10,7 @@ namespace Mind_the_Gap
         private SpriteBatch _spriteBatch;
 
         private Player player;
+        private TileMap tileMap;
 
         public Game1()
         {
@@ -25,7 +26,9 @@ namespace Mind_the_Gap
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            player = new(Vector2.Zero, new Vector2(14, 14));
+            tileMap = new(Vector2.Zero, new Vector2(16, 16));
+            tileMap.FilePath = "../../../data/levels/level_test/level_test_0.csv";
             base.Initialize();
         }
 
@@ -35,7 +38,9 @@ namespace Mind_the_Gap
 
             // TODO: use this.Content to load your game content here
             Texture2D texture = Content.Load<Texture2D>("player_sprite_sheet");
-            player = new(texture, Vector2.Zero, new Vector2(14, 14));
+            player.Texture = texture;
+            texture = Content.Load<Texture2D>("tileset");
+            tileMap.Texture = texture;
         }
 
         protected override void Update(GameTime gameTime)

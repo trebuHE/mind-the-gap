@@ -11,10 +11,10 @@ namespace Mind_the_Gap
     internal class Sprite
     {
         protected Vector2 position;
-        protected Texture2D texture;
         protected Vector2 size;
+        private Texture2D texture;
         private static readonly int SCALE = 4;
-
+        public Texture2D Texture { get => texture; set => texture = value; }
         public Rectangle DestinationRect
         {
             get
@@ -27,9 +27,9 @@ namespace Mind_the_Gap
             }
         }
 
-        public Sprite(Texture2D texture, Vector2 position, Vector2 size)
+
+        public Sprite(Vector2 position, Vector2 size)
         {
-            this.texture = texture;
             this.position = position;
             this.size = size;
         }
@@ -40,7 +40,7 @@ namespace Mind_the_Gap
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, DestinationRect, Color.White);
+            spriteBatch.Draw(Texture, DestinationRect, Color.White);
         }
     }
 }

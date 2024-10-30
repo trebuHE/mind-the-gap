@@ -25,7 +25,7 @@ namespace Mind_the_Gap
         private AnimationManager animationManager;
         private Vector2 velocity;
         private float speed = 100f;
-        public Player(Texture2D texture, Vector2 position, Vector2 size) : base(texture, position, size)
+        public Player(Vector2 position, Vector2 size) : base(position, size)
         {
             animationManager = new(new Dictionary<int, Animation>() {
                 { (int)Animations.IDLE_DOWN, new Animation(2, 0, size) },
@@ -59,7 +59,7 @@ namespace Mind_the_Gap
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, DestinationRect, animationManager.SourceRect, Color.White);
+            spriteBatch.Draw(Texture, DestinationRect, animationManager.SourceRect, Color.White);
         }
 
         private void MoveX(float deltaTime)
