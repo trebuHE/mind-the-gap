@@ -27,8 +27,8 @@ namespace Mind_the_Gap
         {
             // TODO: Add your initialization logic here
             player = new(Vector2.Zero, new Vector2(14, 14));
-            tileMap = new(Vector2.Zero, new Vector2(16, 16));
-            tileMap.FilePath = "../../../data/levels/level_test/level_test_0.csv";
+            tileMap = new(Vector2.Zero, new Vector2(16, 16), 4);
+            tileMap.LoadMap("../../../data/levels/level_test/level_test_1.csv");
             base.Initialize();
         }
 
@@ -59,6 +59,7 @@ namespace Mind_the_Gap
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp); // scaling method used for pixel-art
 
+            tileMap.Draw(_spriteBatch);
             player.Draw(_spriteBatch);
 
             _spriteBatch.End();

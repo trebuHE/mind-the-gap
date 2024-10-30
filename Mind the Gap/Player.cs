@@ -24,7 +24,7 @@ namespace Mind_the_Gap
         }
         private AnimationManager animationManager;
         private Vector2 velocity;
-        private float speed = 100f;
+        private float speed = 150f;
         public Player(Vector2 position, Vector2 size) : base(position, size)
         {
             animationManager = new(new Dictionary<int, Animation>() {
