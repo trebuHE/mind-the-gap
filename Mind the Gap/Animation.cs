@@ -10,9 +10,10 @@ namespace Mind_the_Gap
         private readonly int frames;
         private readonly int row;
         private readonly Vector2 frameSize;
-        private readonly float interval;
+        private readonly float loopTime;
         private int activeFrame;
         private float counter;
+        private float interval;
 
 
         /// <param name="frames">number of frames in the animation</param>
@@ -24,7 +25,8 @@ namespace Mind_the_Gap
             this.row = row;
             this.frameSize = frameSize;
             activeFrame = 0;
-            interval = 0.4f; // time in seconds for wich every frame is displayed 
+            loopTime = 0.9f; // time in seconds
+            interval = loopTime / frames;
         }
         public void Update(GameTime gameTime)
         {
