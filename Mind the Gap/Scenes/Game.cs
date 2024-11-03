@@ -2,14 +2,14 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Mind_the_Gap
+namespace Mind_the_Gap.Scenes
 {
-    internal class GameScene : IScene
+    internal class Game : IScene
     {
         private ContentManager contentManager;
         private Player player;
         private TileMap tileMap;
-        public GameScene(ContentManager contentManager)
+        public Game(ContentManager contentManager)
         {
             this.contentManager = contentManager;
         }

@@ -35,7 +35,7 @@ namespace Mind_the_Gap
 
             // TODO: use this.Content to load your game content here
 
-            sceneManager.AddScene(new GameScene(Content));
+            sceneManager.AddScene(new Scenes.Game(Content));
         }
 
         protected override void Update(GameTime gameTime)
