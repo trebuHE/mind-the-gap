@@ -11,34 +11,23 @@ namespace Mind_the_Gap
 {
     internal class Player : Sprite
     {
-        private enum Animations
-        {
-            IDLE_DOWN,
-            IDLE_RIGHT,
-            IDLE_LEFT,
-            IDLE_UP,
-            WALK_DOWN,
-            WALK_RIGHT,
-            WALK_LEFT,
-            WALK_UP
-        }
         private AnimationManager animationManager;
         private Vector2 velocity;
         private float speed = 150f;
         public Player(Vector2 position, Vector2 size) : base(position, size)
         {
-            animationManager = new(new Dictionary<int, Animation>() {
-                { (int)Animations.IDLE_DOWN, new Animation(2, 0, size) },
-                { (int)Animations.IDLE_RIGHT,new Animation(2, 1, size) },
-                { (int)Animations.IDLE_LEFT, new Animation(2, 2, size) },
-                { (int)Animations.IDLE_UP,   new Animation(2, 3, size) },
-                { (int)Animations.WALK_DOWN, new Animation(4, 4, size) },
-                { (int)Animations.WALK_RIGHT,new Animation(4, 5, size) },
-                { (int)Animations.WALK_LEFT, new Animation(4, 6, size) },
-                { (int)Animations.WALK_UP,   new Animation(4, 7, size) },
+            animationManager = new(new Dictionary<Animations, Animation>() {
+                { Animations.IDLE_DOWN, new Animation(2, 0, size) },
+                { Animations.IDLE_RIGHT,new Animation(2, 1, size) },
+                { Animations.IDLE_LEFT, new Animation(2, 2, size) },
+                { Animations.IDLE_UP,   new Animation(2, 3, size) },
+                { Animations.WALK_DOWN, new Animation(4, 4, size) },
+                { Animations.WALK_RIGHT,new Animation(4, 5, size) },
+                { Animations.WALK_LEFT, new Animation(4, 6, size) },
+                { Animations.WALK_UP,   new Animation(4, 7, size) },
             });
 
-            animationManager.ActiveAnimation = (int)Animations.IDLE_DOWN;
+            animationManager.ActiveAnimation = Animations.IDLE_DOWN;
         }
 
         public override void Update(GameTime gameTime)
@@ -100,13 +89,13 @@ namespace Mind_the_Gap
                 //is going right
                 if(velocity.X > 0f)
                 {
-                    animationManager.ActiveAnimation = (int)Animations.WALK_RIGHT;
+                    animationManager.ActiveAnimation = Animations.WALK_RIGHT;
                 }
 
                 //is standing to the right
                 if(velocity.X == 0f)
                 {
-                    animationManager.ActiveAnimation = (int)Animations.IDLE_RIGHT;
+                    animationManager.ActiveAnimation = Animations.IDLE_RIGHT;
                 }
             }
 
@@ -116,13 +105,13 @@ namespace Mind_the_Gap
                 //is going left
                 if(velocity.X < 0f)
                 {
-                    animationManager.ActiveAnimation = (int)Animations.WALK_LEFT;
+                    animationManager.ActiveAnimation = Animations.WALK_LEFT;
                 }
 
                 //is standing to the left
                 if(velocity.X == 0f)
                 {
-                    animationManager.ActiveAnimation = (int)Animations.IDLE_LEFT;
+                    animationManager.ActiveAnimation = Animations.IDLE_LEFT;
                 }
             }
 
@@ -132,13 +121,13 @@ namespace Mind_the_Gap
                 //is going down
                 if(velocity.Y > 0f)
                 {
-                    animationManager.ActiveAnimation = (int)Animations.WALK_DOWN;
+                    animationManager.ActiveAnimation = Animations.WALK_DOWN;
                 }
 
                 //is standing face down
                 if(velocity.Y == 0f)
                 {
-                    animationManager.ActiveAnimation = (int)Animations.IDLE_DOWN;
+                    animationManager.ActiveAnimation = Animations.IDLE_DOWN;
                 }
             }
 
@@ -148,13 +137,13 @@ namespace Mind_the_Gap
                 //is going up
                 if(velocity.Y < 0f)
                 {
-                    animationManager.ActiveAnimation = (int)Animations.WALK_UP;
+                    animationManager.ActiveAnimation = Animations.WALK_UP;
                 }
 
                 //is standing face up
                 if(velocity.Y == 0f)
                 {
-                    animationManager.ActiveAnimation = (int)Animations.IDLE_UP;
+                    animationManager.ActiveAnimation = Animations.IDLE_UP;
                 }
             }
         }

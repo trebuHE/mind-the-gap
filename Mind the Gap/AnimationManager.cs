@@ -7,9 +7,21 @@ using System.Threading.Tasks;
 
 namespace Mind_the_Gap
 {
+    public enum Animations
+    {
+        IDLE_DOWN,
+        IDLE_RIGHT,
+        IDLE_LEFT,
+        IDLE_UP,
+        WALK_DOWN,
+        WALK_RIGHT,
+        WALK_LEFT,
+        WALK_UP
+    }
+
     internal class AnimationManager
     {
-        public int ActiveAnimation
+        public Animations ActiveAnimation
         {
             set
             {
@@ -34,9 +46,9 @@ namespace Mind_the_Gap
             }
         }
 
-        private Dictionary<int, Animation> animations;
+        private Dictionary<Animations, Animation> animations;
         private Animation activeAnimation;
-        public AnimationManager(Dictionary<int, Animation> animations)
+        public AnimationManager(Dictionary<Animations, Animation> animations)
         {
             this.animations = animations;
             ActiveAnimation = 0;
