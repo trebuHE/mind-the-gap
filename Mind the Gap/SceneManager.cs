@@ -4,6 +4,14 @@ namespace Mind_the_Gap
 {
     internal class SceneManager
     {
+        public IScene CurrentScene
+        {
+            get
+            {
+                return scenes.Peek();
+            }
+            private set { }
+        }
         private Stack<IScene> scenes;
         public SceneManager()
         {
@@ -20,12 +28,5 @@ namespace Mind_the_Gap
         {
             scenes.Pop();
         }
-
-        public IScene GetScene()
-        {
-            return scenes.Peek();
-        }
-
-
     }
 }
