@@ -41,7 +41,7 @@ namespace Mind_the_Gap
         {
 
             // TODO: Add your update logic here
-
+            Timer.UpdateTimers(gameTime);
             sceneManager.CurrentScene.Update(gameTime);
 
             base.Update(gameTime);
