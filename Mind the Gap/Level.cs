@@ -8,13 +8,14 @@ namespace Mind_the_Gap
     {
         public bool Finished { get; private set; }
         public bool DrawAndUpdatePlayer { get; private set; }
+
+        private bool levelStarted;
         private ContentManager contentManager;
         private TileMap pathMap;
         private string pathMapPath;
         private TileMap gameMap;
         private string gameMapPath;
         private float memorizeTimeSec;
-        private float timeElapsedSec;
 
         public Level(string pathMapPath, string gameMapPath, float memorizeTimeSec, ContentManager contentManager)
         {
@@ -28,31 +29,39 @@ namespace Mind_the_Gap
             Texture2D texture = contentManager.Load<Texture2D>("tileset");
             pathMap.Texture = texture;
             gameMap.Texture = texture;
-            timeElapsedSec = 0f;
             DrawAndUpdatePlayer = false;
+            levelStarted = false;
         }
 
         public void Load()
         {
             pathMap.LoadMap(pathMapPath);
             gameMap.LoadMap(gameMapPath);
+
+            Timer.Create(memorizeTimeSec, () => StartLevel());
         }
 
         public void Update(GameTime gameTime)
         {
-            timeElapsedSec += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            pathMap.Draw(spriteBatch);
-
-            if(timeElapsedSec >= memorizeTimeSec)
+            if(!levelStarted)
             {
-                DrawAndUpdatePlayer = true;
+                pathMap.Draw(spriteBatch);
+            }
+            else
+            {
                 gameMap.Draw(spriteBatch);
             }
+        }
 
+        private void StartLevel()
+        {
+            levelStarted = true;
+            DrawAndUpdatePlayer = true;
         }
     }
 }
