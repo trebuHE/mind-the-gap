@@ -9,7 +9,6 @@ namespace Mind_the_Gap
         private SpriteBatch _spriteBatch;
 
         private SceneManager sceneManager;
-
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
