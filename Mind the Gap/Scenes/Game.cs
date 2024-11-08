@@ -25,14 +25,14 @@ namespace Mind_the_Gap.Scenes
         public void Load()
         {
             currentLevel.Load();
-            player = new(Vector2.Zero, new Vector2(14, 14), 64, new Vector2(20, 12));
+            player = new(new Vector2(0, 6 * 64), new Vector2(14, 14), 64, new Vector2(20, 12));
             Texture2D texture = contentManager.Load<Texture2D>("player_sprite_sheet");
             player.Texture = texture;
         }
 
         public void Update(GameTime gameTime)
         {
-            currentLevel.Update(gameTime);
+            currentLevel.Update(gameTime, player);
 
             if(currentLevel.DrawAndUpdatePlayer)
                 player.Update(gameTime);

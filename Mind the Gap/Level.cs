@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Mind_the_Gap
 {
@@ -16,6 +19,7 @@ namespace Mind_the_Gap
         private TileMap gameMap;
         private string gameMapPath;
         private float memorizeTimeSec;
+        private int walkableTile;
 
         public Level(string pathMapPath, string gameMapPath, float memorizeTimeSec, ContentManager contentManager)
         {
@@ -31,6 +35,7 @@ namespace Mind_the_Gap
             gameMap.Texture = texture;
             DrawAndUpdatePlayer = false;
             levelStarted = false;
+            walkableTile = -1;
         }
 
         public void Load()
@@ -38,12 +43,21 @@ namespace Mind_the_Gap
             pathMap.LoadMap(pathMapPath);
             gameMap.LoadMap(gameMapPath);
 
+            walkableTile = GetWalkableTile();
+
             Timer.Create(memorizeTimeSec, () => StartLevel());
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Player player)
         {
+            Vector2 playerGridPos = player.GridPosition;
+            int gameTile = gameMap.GetTileAtPos(playerGridPos);
+            int pathTile = pathMap.GetTileAtPos(playerGridPos);
 
+            if(pathTile == walkableTile)
+            {
+                gameMap.SetTileAtPos(playerGridPos, pathTile);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -62,6 +76,18 @@ namespace Mind_the_Gap
         {
             levelStarted = true;
             DrawAndUpdatePlayer = true;
+        }
+
+        private int GetWalkableTile()
+        {
+            HashSet<int> pool = new(pathMap.UsedTiles);
+            pool.ExceptWith(gameMap.UsedTiles); // difference in sets
+
+            List<int> poolList = new(pool);
+            Random random = new Random();
+            int i = random.Next(poolList.Count);
+            Debug.WriteLine("Walkable tile is: " + i);
+            return poolList[i];
         }
     }
 }

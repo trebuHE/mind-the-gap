@@ -1,5 +1,3 @@
-dodaæ klasê timera, ¿eby mierzyæ czas na pocz¹tku levelu
-ogarn¹æ jak dzia³aj¹ Action(), mo¿e siê przydaæ do timerów
 zastanowiæ siê nad UI, jak ma wygl¹daæ, jak je rysowaæ
 w jaki sposób sprawdzaæ, czy gracz staje na dozwolonym polu?
 losowanie koloru na pocz¹tku poziomu
