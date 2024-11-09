@@ -20,6 +20,7 @@ namespace Mind_the_Gap
         private string gameMapPath;
         private float memorizeTimeSec;
         private int walkableTile;
+        private HashSet<int> forbiddenTiles;
 
         public Level(string pathMapPath, string gameMapPath, float memorizeTimeSec, ContentManager contentManager)
         {
@@ -36,6 +37,7 @@ namespace Mind_the_Gap
             DrawAndUpdatePlayer = false;
             levelStarted = false;
             walkableTile = -1;
+            forbiddenTiles = new();
         }
 
         public void Load()
@@ -43,7 +45,7 @@ namespace Mind_the_Gap
             pathMap.LoadMap(pathMapPath);
             gameMap.LoadMap(gameMapPath);
 
-            walkableTile = GetWalkableTile();
+            SetWalkableAndForbiddenTiles();
 
             Timer.Create(memorizeTimeSec, () => StartLevel());
         }
@@ -57,6 +59,11 @@ namespace Mind_the_Gap
             if(pathTile == walkableTile)
             {
                 gameMap.SetTileAtPos(playerGridPos, pathTile);
+            }
+            else if(forbiddenTiles.Contains(pathTile))
+            {
+                // game over
+                Debug.WriteLine("GAME OVER");
             }
         }
 
@@ -78,16 +85,20 @@ namespace Mind_the_Gap
             DrawAndUpdatePlayer = true;
         }
 
-        private int GetWalkableTile()
+        private void SetWalkableAndForbiddenTiles()
         {
             HashSet<int> pool = new(pathMap.UsedTiles);
             pool.ExceptWith(gameMap.UsedTiles); // difference in sets
 
             List<int> poolList = new(pool);
-            Random random = new Random();
+            Random random = new();
             int i = random.Next(poolList.Count);
-            Debug.WriteLine("Walkable tile is: " + i);
-            return poolList[i];
+            Debug.WriteLine("Walkable tile is: " + poolList[i]);
+            walkableTile = poolList[i];
+
+            forbiddenTiles = new(pool);
+            forbiddenTiles.Remove(poolList[i]);
+            Debug.WriteLine("Forbidden tiles are: " + string.Join(", ", forbiddenTiles));
         }
     }
 }
