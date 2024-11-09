@@ -17,7 +17,7 @@ namespace Mind_the_Gap.Scenes
             this.contentManager = contentManager;
             levels = new List<Level>
             {
-                new("../../../data/levels/level_test/level_test_0.csv", "../../../data/levels/level_test/level_test_1.csv", 5f, contentManager)
+                new("../../../data/levels/level_test/level_test_0.csv", "../../../data/levels/level_test/level_test_1.csv", 5f, 17, contentManager)
             };
             currentLevel = levels.First();
         }

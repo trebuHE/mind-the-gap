@@ -21,13 +21,15 @@ namespace Mind_the_Gap
         private float memorizeTimeSec;
         private int walkableTile;
         private HashSet<int> forbiddenTiles;
+        private int winCol;
 
-        public Level(string pathMapPath, string gameMapPath, float memorizeTimeSec, ContentManager contentManager)
+        public Level(string pathMapPath, string gameMapPath, float memorizeTimeSec, int winCol, ContentManager contentManager)
         {
             this.contentManager = contentManager;
             this.gameMapPath = gameMapPath;
             this.pathMapPath = pathMapPath;
             this.memorizeTimeSec = memorizeTimeSec;
+            this.winCol = winCol;
             Finished = false;
             pathMap = new(Vector2.Zero, new Vector2(16, 16), 4);
             gameMap = new(Vector2.Zero, new Vector2(16, 16), 4);
@@ -53,7 +55,6 @@ namespace Mind_the_Gap
         public void Update(GameTime gameTime, Player player)
         {
             Vector2 playerGridPos = player.GridPosition;
-            int gameTile = gameMap.GetTileAtPos(playerGridPos);
             int pathTile = pathMap.GetTileAtPos(playerGridPos);
 
             if(pathTile == walkableTile)
@@ -64,6 +65,12 @@ namespace Mind_the_Gap
             {
                 // game over
                 Debug.WriteLine("GAME OVER");
+            }
+
+            if(player.GridPosition.X >= winCol - 1)
+            {
+                // level finished
+                Debug.WriteLine("Level finished!");
             }
         }
 
