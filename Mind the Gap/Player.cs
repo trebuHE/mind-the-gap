@@ -32,7 +32,7 @@ namespace Mind_the_Gap
         private readonly int gridCellSize;
         private readonly Vector2 gridSize;
         private readonly float step = 1;
-        public Player(Vector2 position, Vector2 size, int stepSize, Vector2 gridSize) : base(position, size)
+        public Player(Vector2 position, Vector2 size, int stepSize, Vector2 gridSize) : base(position * stepSize, size)
         {
             animationManager = new(new Dictionary<Animations, Animation>() {
                 { Animations.IDLE_DOWN, new Animation(2, 0, size) },
@@ -47,14 +47,14 @@ namespace Mind_the_Gap
 
             animationManager.ActiveAnimation = Animations.IDLE_DOWN;
             gridCellSize = stepSize;
-            GridPosition = Vector2.Zero;
+            GridPosition = position;
             this.gridSize = gridSize;
             canMove = true;
             takeInputD = true;
             takeInputA = true;
             takeInputS = true;
             takeInputW = true;
-            targetPos = position;
+            targetPos = position * stepSize;
         }
 
         public override void Update(GameTime gameTime)

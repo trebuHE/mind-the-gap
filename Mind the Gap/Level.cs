@@ -11,7 +11,7 @@ namespace Mind_the_Gap
     {
         public bool Finished { get; private set; }
         public bool DrawAndUpdatePlayer { get; private set; }
-
+        public Vector2 PlayerSpawnGridPos { get; private set; }
         private bool levelStarted;
         private ContentManager contentManager;
         private TileMap pathMap;
@@ -23,12 +23,13 @@ namespace Mind_the_Gap
         private HashSet<int> forbiddenTiles;
         private int winCol;
 
-        public Level(string pathMapPath, string gameMapPath, float memorizeTimeSec, int winCol, ContentManager contentManager)
+        public Level(string pathMapPath, string gameMapPath, float memorizeTimeSec, Vector2 playerSpawnGridPos, int winCol, ContentManager contentManager)
         {
             this.contentManager = contentManager;
             this.gameMapPath = gameMapPath;
             this.pathMapPath = pathMapPath;
             this.memorizeTimeSec = memorizeTimeSec;
+            PlayerSpawnGridPos = playerSpawnGridPos;
             this.winCol = winCol;
             Finished = false;
             pathMap = new(Vector2.Zero, new Vector2(16, 16), 4);

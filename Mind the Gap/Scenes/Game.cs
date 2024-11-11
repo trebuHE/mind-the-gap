@@ -17,7 +17,7 @@ namespace Mind_the_Gap.Scenes
             this.contentManager = contentManager;
             levels = new List<Level>
             {
-                new("../../../data/levels/level_test/level_test_0.csv", "../../../data/levels/level_test/level_test_1.csv", 5f, 17, contentManager)
+                new("../../../data/levels/level_test/level_test_0.csv", "../../../data/levels/level_test/level_test_1.csv", 1f, new Vector2(0, 5), 17, contentManager)
             };
             currentLevel = levels.First();
         }
@@ -25,7 +25,7 @@ namespace Mind_the_Gap.Scenes
         public void Load()
         {
             currentLevel.Load();
-            player = new(new Vector2(0, 5 * 64), new Vector2(14, 14), 64, new Vector2(20, 12));
+            player = new(currentLevel.PlayerSpawnGridPos, new Vector2(14, 14), 64, new Vector2(20, 12));
             Texture2D texture = contentManager.Load<Texture2D>("player_sprite_sheet");
             player.Texture = texture;
         }
