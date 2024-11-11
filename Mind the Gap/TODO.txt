@@ -1,3 +1,4 @@
+przepisac system scen, zeby pozwalal na nakladanie zcen z UI
 win con
 zastanowic sie nad UI, jak ma wygladac, jak je rysowac
 zaprojektowac main game loop

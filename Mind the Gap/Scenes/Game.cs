@@ -17,7 +17,7 @@ namespace Mind_the_Gap.Scenes
             this.contentManager = contentManager;
             levels = new List<Level>
             {
-                new("../../../data/levels/level_test/level_test_0.csv", "../../../data/levels/level_test/level_test_1.csv", 1f, new Vector2(0, 5), 17, contentManager)
+                new("../../../data/levels/level_test/level_test_0.csv", "../../../data/levels/level_test/level_test_1.csv", 1f, new Vector2(3, 5), 17, contentManager)
             };
             currentLevel = levels.First();
         }
@@ -36,6 +36,9 @@ namespace Mind_the_Gap.Scenes
 
             if(currentLevel.DrawAndUpdatePlayer)
                 player.Update(gameTime);
+
+            if(currentLevel.GameOver)
+                Load();
         }
 
         public void Draw(SpriteBatch spriteBatch)

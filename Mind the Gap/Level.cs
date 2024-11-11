@@ -10,6 +10,7 @@ namespace Mind_the_Gap
     internal class Level
     {
         public bool Finished { get; private set; }
+        public bool GameOver { get; private set; }
         public bool DrawAndUpdatePlayer { get; private set; }
         public Vector2 PlayerSpawnGridPos { get; private set; }
         private bool levelStarted;
@@ -31,6 +32,12 @@ namespace Mind_the_Gap
             this.memorizeTimeSec = memorizeTimeSec;
             PlayerSpawnGridPos = playerSpawnGridPos;
             this.winCol = winCol;
+
+            Init();
+        }
+
+        private void Init()
+        {
             Finished = false;
             pathMap = new(Vector2.Zero, new Vector2(16, 16), 4);
             gameMap = new(Vector2.Zero, new Vector2(16, 16), 4);
@@ -41,10 +48,13 @@ namespace Mind_the_Gap
             levelStarted = false;
             walkableTile = -1;
             forbiddenTiles = new();
+            GameOver = false;
         }
 
         public void Load()
         {
+            Init();
+
             pathMap.LoadMap(pathMapPath);
             gameMap.LoadMap(gameMapPath);
 
@@ -66,6 +76,7 @@ namespace Mind_the_Gap
             {
                 // game over
                 Debug.WriteLine("GAME OVER");
+                GameOver = true;
             }
 
             if(player.GridPosition.X >= winCol - 1)
