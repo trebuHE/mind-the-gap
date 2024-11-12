@@ -13,6 +13,8 @@ namespace Mind_the_Gap
         public bool GameOver { get; private set; }
         public bool DrawAndUpdatePlayer { get; private set; }
         public Vector2 PlayerSpawnGridPos { get; private set; }
+        public int WalkableTile { get; private set; }
+
         private bool levelStarted;
         private ContentManager contentManager;
         private TileMap pathMap;
@@ -20,7 +22,6 @@ namespace Mind_the_Gap
         private TileMap gameMap;
         private string gameMapPath;
         private float memorizeTimeSec;
-        private int walkableTile;
         private HashSet<int> forbiddenTiles;
         private int winCol;
 
@@ -46,7 +47,7 @@ namespace Mind_the_Gap
             gameMap.Texture = texture;
             DrawAndUpdatePlayer = false;
             levelStarted = false;
-            walkableTile = -1;
+            WalkableTile = -1;
             forbiddenTiles = new();
             GameOver = false;
         }
@@ -68,7 +69,7 @@ namespace Mind_the_Gap
             Vector2 playerGridPos = player.GridPosition;
             int pathTile = pathMap.GetTileAtPos(playerGridPos);
 
-            if(pathTile == walkableTile)
+            if(pathTile == WalkableTile)
             {
                 gameMap.SetTileAtPos(playerGridPos, pathTile);
             }
@@ -113,7 +114,7 @@ namespace Mind_the_Gap
             Random random = new();
             int i = random.Next(poolList.Count);
             Debug.WriteLine("Walkable tile is: " + poolList[i]);
-            walkableTile = poolList[i];
+            WalkableTile = poolList[i];
 
             forbiddenTiles = new(pool);
             forbiddenTiles.Remove(poolList[i]);
