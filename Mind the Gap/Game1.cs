@@ -17,7 +17,7 @@ namespace Mind_the_Gap
 
             // set window size
             _graphics.PreferredBackBufferWidth = 1280;
-            _graphics.PreferredBackBufferHeight = 768;
+            _graphics.PreferredBackBufferHeight = 768 + 64;
         }
 
         protected override void Initialize()

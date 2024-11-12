@@ -3,4 +3,3 @@ win con
 zastanowic sie nad UI, jak ma wygladac, jak je rysowac
 zaprojektowac main game loop
 jak wyglada przegrana, cofa do pierwszego poziomu, restartuje aktualny poziom?
-
