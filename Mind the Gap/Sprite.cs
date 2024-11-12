@@ -8,8 +8,8 @@ namespace Mind_the_Gap
         protected Vector2 position;
         protected Vector2 size;
         protected static readonly int SCALE = 4;
-        private Texture2D texture;
-        public Texture2D Texture { get => texture; set => texture = value; }
+
+        public Texture2D Texture { get; set; }
         public Rectangle DestinationRect
         {
             get
