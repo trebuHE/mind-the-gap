@@ -25,7 +25,7 @@ namespace Mind_the_Gap.Scenes
             currentLevel = levels.First();
 
             levelNumberText = new(new Vector2(32, (12 * 64) + 20), Color.White, "Level: " + levelNumber);
-            walkOnText = new(new Vector2(4 * 64, (12 * 64) + 20), Color.White, "Walk on: ");
+            walkOnText = new(new Vector2(4 * 64, (12 * 64) + 20), Color.White, "Memorize a path!");
         }
 
         public void Load()
@@ -56,12 +56,27 @@ namespace Mind_the_Gap.Scenes
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            DrawGame(spriteBatch);
+            DrawGUI(spriteBatch);
+        }
+        private void DrawGame(SpriteBatch spriteBatch)
+        {
             currentLevel.Draw(spriteBatch);
 
             if(currentLevel.DrawAndUpdatePlayer)
                 player.Draw(spriteBatch);
-
+        }
+        private void DrawGUI(SpriteBatch spriteBatch)
+        {
             levelNumberText.Draw(spriteBatch);
+            walkOnText.DisplayedText = "Memorize a path!";
+
+            if(currentLevel.DrawAndUpdatePlayer)
+            {
+                walkOnText.DisplayedText = "Walk on: ";
+                currentLevel.GameMap.Draw(spriteBatch, currentLevel.WalkableTile, new Vector2(430, (12 * 64) + 8), new Vector2(48, 48));
+            }
+
             walkOnText.Draw(spriteBatch);
         }
     }

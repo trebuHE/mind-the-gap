@@ -40,6 +40,26 @@ namespace Mind_the_Gap
             }
         }
 
+        public void Draw(SpriteBatch spriteBatch, int index, Vector2 position, Vector2 screenSize)
+        {
+            Rectangle destRect = new(
+                    (int)position.X,
+                    (int)position.Y,
+                    (int)screenSize.X,
+                    (int)screenSize.Y);
+
+            int x = index % tilesPerRow;
+            int y = index / tilesPerRow;
+
+            Rectangle srcRect = new(
+                x * (int)size.X,
+                y * (int)size.Y,
+                (int)size.X,
+                (int)size.Y);
+
+            spriteBatch.Draw(Texture, destRect, srcRect, Color.White);
+        }
+
         public void LoadMap(string filePath)
         {
             map = new Dictionary<Vector2, int>();

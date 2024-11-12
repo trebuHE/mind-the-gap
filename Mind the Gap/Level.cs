@@ -14,12 +14,12 @@ namespace Mind_the_Gap
         public bool DrawAndUpdatePlayer { get; private set; }
         public Vector2 PlayerSpawnGridPos { get; private set; }
         public int WalkableTile { get; private set; }
+        public TileMap GameMap { get; private set; }
 
         private bool levelStarted;
         private ContentManager contentManager;
         private TileMap pathMap;
         private string pathMapPath;
-        private TileMap gameMap;
         private string gameMapPath;
         private float memorizeTimeSec;
         private HashSet<int> forbiddenTiles;
@@ -41,10 +41,10 @@ namespace Mind_the_Gap
         {
             Finished = false;
             pathMap = new(Vector2.Zero, new Vector2(16, 16), 4);
-            gameMap = new(Vector2.Zero, new Vector2(16, 16), 4);
+            GameMap = new(Vector2.Zero, new Vector2(16, 16), 4);
             Texture2D texture = contentManager.Load<Texture2D>("tileset");
             pathMap.Texture = texture;
-            gameMap.Texture = texture;
+            GameMap.Texture = texture;
             DrawAndUpdatePlayer = false;
             levelStarted = false;
             WalkableTile = -1;
@@ -57,7 +57,7 @@ namespace Mind_the_Gap
             Init();
 
             pathMap.LoadMap(pathMapPath);
-            gameMap.LoadMap(gameMapPath);
+            GameMap.LoadMap(gameMapPath);
 
             SetWalkableAndForbiddenTiles();
 
@@ -71,7 +71,7 @@ namespace Mind_the_Gap
 
             if(pathTile == WalkableTile)
             {
-                gameMap.SetTileAtPos(playerGridPos, pathTile);
+                GameMap.SetTileAtPos(playerGridPos, pathTile);
             }
             else if(forbiddenTiles.Contains(pathTile))
             {
@@ -95,7 +95,7 @@ namespace Mind_the_Gap
             }
             else
             {
-                gameMap.Draw(spriteBatch);
+                GameMap.Draw(spriteBatch);
             }
         }
 
@@ -108,7 +108,7 @@ namespace Mind_the_Gap
         private void SetWalkableAndForbiddenTiles()
         {
             HashSet<int> pool = new(pathMap.UsedTiles);
-            pool.ExceptWith(gameMap.UsedTiles); // difference in sets
+            pool.ExceptWith(GameMap.UsedTiles); // difference in sets
 
             List<int> poolList = new(pool);
             Random random = new();
