@@ -14,7 +14,6 @@ namespace Mind_the_Gap
         WALK_LEFT,
         WALK_UP
     }
-
     internal class AnimationManager
     {
         public Animations ActiveAnimation
@@ -42,8 +41,8 @@ namespace Mind_the_Gap
             }
         }
 
-        private Dictionary<Animations, Animation> animations;
         private Animation activeAnimation;
+        private readonly Dictionary<Animations, Animation> animations;
         public AnimationManager(Dictionary<Animations, Animation> animations)
         {
             this.animations = animations;

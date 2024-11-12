@@ -20,7 +20,6 @@ namespace Mind_the_Gap
             }
         }
 
-        private AnimationManager animationManager;
         private Vector2 velocity;
         private Vector2 targetPos;
         private bool canMove;
@@ -28,10 +27,11 @@ namespace Mind_the_Gap
         private bool takeInputA;
         private bool takeInputS;
         private bool takeInputW;
-        // private readonly float speed = 150f;
+        private readonly AnimationManager animationManager;
         private readonly int gridCellSize;
         private readonly Vector2 gridSize;
         private readonly float step = 1;
+
         public Player(Vector2 position, Vector2 size, int stepSize, Vector2 gridSize) : base(position * stepSize, size)
         {
             animationManager = new(new Dictionary<Animations, Animation>() {
@@ -59,15 +59,7 @@ namespace Mind_the_Gap
 
         public override void Update(GameTime gameTime)
         {
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             Vector2 prevVelocity = velocity;
-
-            //if(velocity.Y == 0)
-            //    MoveX(deltaTime);
-
-            //if(velocity.X == 0)
-            //    MoveY(deltaTime);
-
             GetInput();
             Move();
             SetAnimation(prevVelocity);
@@ -166,7 +158,6 @@ namespace Mind_the_Gap
 
         private void SetAnimation(Vector2 prevVelocity)
         {
-
             // was going right
             if(prevVelocity.X > 0f)
             {
@@ -231,35 +222,5 @@ namespace Mind_the_Gap
                 }
             }
         }
-
-        /*
-        private void MoveX(float deltaTime)
-        {
-            velocity.X = 0f;
-            if(Keyboard.GetState().IsKeyDown(Keys.D))
-            {
-                velocity.X += speed * deltaTime;
-            }
-            if(Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                velocity.X -= speed * deltaTime;
-            }
-            position.X += velocity.X;
-
-        }
-        private void MoveY(float deltaTime)
-        {
-            velocity.Y = 0f;
-            if(Keyboard.GetState().IsKeyDown(Keys.W))
-            {
-                velocity.Y -= speed * deltaTime;
-            }
-            if(Keyboard.GetState().IsKeyDown(Keys.S))
-            {
-                velocity.Y += speed * deltaTime;
-            }
-            position.Y += velocity.Y;
-
-        }*/
     }
 }

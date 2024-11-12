@@ -17,13 +17,13 @@ namespace Mind_the_Gap
         public TileMap GameMap { get; private set; }
 
         private bool levelStarted;
-        private ContentManager contentManager;
-        private TileMap pathMap;
-        private string pathMapPath;
-        private string gameMapPath;
-        private float memorizeTimeSec;
         private HashSet<int> forbiddenTiles;
-        private int winCol;
+        private TileMap pathMap;
+        private readonly ContentManager contentManager;
+        private readonly string pathMapPath;
+        private readonly string gameMapPath;
+        private readonly float memorizeTimeSec;
+        private readonly int winCol;
 
         public Level(string pathMapPath, string gameMapPath, float memorizeTimeSec, Vector2 playerSpawnGridPos, int winCol, ContentManager contentManager)
         {

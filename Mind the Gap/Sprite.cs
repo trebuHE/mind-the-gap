@@ -5,10 +5,6 @@ namespace Mind_the_Gap
 {
     internal class Sprite
     {
-        protected Vector2 position;
-        protected Vector2 size;
-        protected static readonly int SCALE = 4;
-
         public Texture2D Texture { get; set; }
         public Rectangle DestinationRect
         {
@@ -22,6 +18,9 @@ namespace Mind_the_Gap
             }
         }
 
+        protected Vector2 position;
+        protected Vector2 size;
+        protected static readonly int SCALE = 4;
 
         public Sprite(Vector2 position, Vector2 size)
         {

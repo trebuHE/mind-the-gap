@@ -1,4 +1,3 @@
-jak wyswietlac dozwolony tile w GUI?
 win con
 zaprojektowac main game loop
 jak wyglada przegrana, cofa do pierwszego poziomu, restartuje aktualny poziom?

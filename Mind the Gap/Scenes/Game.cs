@@ -8,13 +8,23 @@ namespace Mind_the_Gap.Scenes
 {
     internal class Game : IScene
     {
-        private ContentManager contentManager;
+        #region consts
+        private static readonly Vector2 LEVEL_NUM_TXT_POS = new(32, (12 * 64) + 20);
+        private static readonly Vector2 WALK_ON_TXT_POS = new(4 * 64, (12 * 64) + 20);
+        private static readonly Vector2 PLAYER_SIZE = new(14, 14);
+        private static readonly Vector2 GRID_SIZE = new(20, 12);
+        private static readonly Vector2 WALKABLE_TILE_ICON_POS = new(430, (12 * 64) + 8);
+        private static readonly Vector2 WALKABLE_TILE_ICON_SIZE = new(48, 48);
+        #endregion
+
+        private readonly ContentManager contentManager;
+        private readonly Level currentLevel;
+        private readonly List<Level> levels;
+        private readonly Text levelNumberText;
+        private readonly Text walkOnText;
+        private readonly int levelNumber = 1;
         private Player player;
-        private Level currentLevel;
-        private List<Level> levels;
-        private Text levelNumberText;
-        private Text walkOnText;
-        private int levelNumber = 1;
+
         public Game(ContentManager contentManager)
         {
             this.contentManager = contentManager;
@@ -24,14 +34,14 @@ namespace Mind_the_Gap.Scenes
             };
             currentLevel = levels.First();
 
-            levelNumberText = new(new Vector2(32, (12 * 64) + 20), Color.White, "Level: " + levelNumber);
-            walkOnText = new(new Vector2(4 * 64, (12 * 64) + 20), Color.White, "Memorize a path!");
+            levelNumberText = new(LEVEL_NUM_TXT_POS, Color.White, "Level: " + levelNumber);
+            walkOnText = new(WALK_ON_TXT_POS, Color.White, "Memorize a path!");
         }
 
         public void Load()
         {
             currentLevel.Load();
-            player = new(currentLevel.PlayerSpawnGridPos, new Vector2(14, 14), 64, new Vector2(20, 12));
+            player = new(currentLevel.PlayerSpawnGridPos, PLAYER_SIZE, 64, GRID_SIZE);
 
             // textures
             Texture2D texture = contentManager.Load<Texture2D>("player_sprite_sheet");
@@ -74,7 +84,7 @@ namespace Mind_the_Gap.Scenes
             if(currentLevel.DrawAndUpdatePlayer)
             {
                 walkOnText.DisplayedText = "Walk on: ";
-                currentLevel.GameMap.Draw(spriteBatch, currentLevel.WalkableTile, new Vector2(430, (12 * 64) + 8), new Vector2(48, 48));
+                currentLevel.GameMap.Draw(spriteBatch, currentLevel.WalkableTile, WALKABLE_TILE_ICON_POS, WALKABLE_TILE_ICON_SIZE);
             }
 
             walkOnText.Draw(spriteBatch);

@@ -12,7 +12,9 @@ namespace Mind_the_Gap
             }
             private set { }
         }
-        private Stack<IScene> scenes;
+
+        private readonly Stack<IScene> scenes;
+
         public SceneManager()
         {
             scenes = new();

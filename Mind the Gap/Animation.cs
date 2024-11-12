@@ -7,14 +7,13 @@ namespace Mind_the_Gap
     /// </summary>
     internal class Animation
     {
+        private int activeFrame;
+        private float counter;
         private readonly int frames;
         private readonly int row;
         private readonly Vector2 frameSize;
         private readonly float loopTime;
-        private int activeFrame;
-        private float counter;
-        private float interval;
-
+        private readonly float interval;
 
         /// <param name="frames">number of frames in the animation</param>
         /// <param name="row">index of a row in a sprite sheet, starting at 0</param>
@@ -28,6 +27,7 @@ namespace Mind_the_Gap
             loopTime = 0.9f; // time in seconds
             interval = loopTime / frames;
         }
+
         public void Update(GameTime gameTime)
         {
             counter += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -38,6 +38,7 @@ namespace Mind_the_Gap
             }
 
         }
+
         private void NextFrame()
         {
             activeFrame++;
@@ -46,6 +47,7 @@ namespace Mind_the_Gap
                 activeFrame = 0;
             }
         }
+
         public Rectangle GetFrameRect()
         {
             return new Rectangle(activeFrame * (int)frameSize.X,
@@ -54,6 +56,7 @@ namespace Mind_the_Gap
                 (int)frameSize.Y);
 
         }
+
         public void Reset()
         {
             activeFrame = 0;

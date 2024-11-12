@@ -6,7 +6,7 @@ namespace Mind_the_Gap
 {
     internal class Timer
     {
-        private static List<Timer> timers = new();
+        private static readonly List<Timer> timers = new();
 
         private readonly float time;
         private readonly Action callbackAction;
@@ -69,9 +69,9 @@ namespace Mind_the_Gap
         /// Creates a Timer and returns it
         /// </summary>
         /// <param name="time">in seconds</param>
-        /// <param name="callbackAction">function to be called when time runs out</param>
+        /// <param name="callbackAction">function to be called when the time runs out</param>
         /// <param name="looping">should the timer loop?</param>
-        /// <param name="name"></param>
+        /// <param name="name">to reference a specific Timer in static call</param>
         /// <returns></returns>
         public static Timer Create(float time, Action callbackAction, bool looping = false, string name = null)
         {

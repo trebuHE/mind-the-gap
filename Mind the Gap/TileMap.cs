@@ -9,13 +9,17 @@ namespace Mind_the_Gap
     {
         public HashSet<int> UsedTiles { get; private set; }
         private Dictionary<Vector2, int> map;
-        private int tilesPerRow;
+        private readonly int tilesPerRow;
+
         public TileMap(Vector2 position, Vector2 tileSize, int tilesPerRow) : base(position, tileSize)
         {
             this.tilesPerRow = tilesPerRow;
             UsedTiles = new();
         }
 
+        /// <summary>
+        /// Draws a whole tile map
+        /// </summary>
         public override void Draw(SpriteBatch spriteBatch)
         {
             foreach(var tile in map)
@@ -40,6 +44,9 @@ namespace Mind_the_Gap
             }
         }
 
+        /// <summary>
+        /// Draws a specific tile from a tile map
+        /// </summary>
         public void Draw(SpriteBatch spriteBatch, int index, Vector2 position, Vector2 screenSize)
         {
             Rectangle destRect = new(
