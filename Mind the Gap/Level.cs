@@ -10,7 +10,7 @@ namespace Mind_the_Gap
     internal class Level
     {
         public bool Finished { get; private set; }
-        public bool GameOver { get; private set; }
+        public bool Failed { get; private set; }
         public bool DrawAndUpdatePlayer { get; private set; }
         public Vector2 PlayerSpawnGridPos { get; private set; }
         public int WalkableTile { get; private set; }
@@ -49,7 +49,7 @@ namespace Mind_the_Gap
             levelStarted = false;
             WalkableTile = -1;
             forbiddenTiles = new();
-            GameOver = false;
+            Failed = false;
         }
 
         public void Load()
@@ -75,15 +75,17 @@ namespace Mind_the_Gap
             }
             else if(forbiddenTiles.Contains(pathTile))
             {
-                // game over
-                Debug.WriteLine("GAME OVER");
-                GameOver = true;
+                // level failed
+                Debug.WriteLine("LEVEL FAILED");
+                Failed = true;
             }
 
             if(player.GridPosition.X >= winCol - 1)
             {
                 // level finished
                 Debug.WriteLine("Level finished!");
+                DrawAndUpdatePlayer = false;
+                Finished = true;
             }
         }
 

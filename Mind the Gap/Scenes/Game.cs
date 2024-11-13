@@ -19,11 +19,11 @@ namespace Mind_the_Gap.Scenes
         #endregion
 
         private readonly ContentManager contentManager;
-        private readonly Level currentLevel;
         private readonly List<Level> levels;
         private readonly Text levelNumberText;
         private readonly Text walkOnText;
-        private readonly int levelNumber = 1;
+        private int levelNumber = 1;
+        private Level currentLevel;
         private Player player;
         private TextButton restartTextButton;
 
@@ -32,7 +32,8 @@ namespace Mind_the_Gap.Scenes
             this.contentManager = contentManager;
             levels = new List<Level>
             {
-                new("../../../data/levels/level_test/level_test_0.csv", "../../../data/levels/level_test/level_test_1.csv", 1f, new Vector2(3, 5), 17, contentManager)
+                new("../../../data/levels/level_test/level_test_path.csv", "../../../data/levels/level_test/level_test_game.csv", 1f, new Vector2(3, 5), 17, contentManager),
+                new("../../../data/levels/level_test2/level_test2_path.csv", "../../../data/levels/level_test2/level_test2_game.csv", 1f, new Vector2(3, 5), 17, contentManager)
             };
             currentLevel = levels.First();
 
@@ -66,10 +67,14 @@ namespace Mind_the_Gap.Scenes
             if(currentLevel.DrawAndUpdatePlayer)
                 player.Update(gameTime);
 
-            if(currentLevel.GameOver)
+            if(currentLevel.Failed)
                 RestartLevel();
 
+            if(currentLevel.Finished)
+                StartNextLevel();
+
             restartTextButton.Update();
+            levelNumberText.DisplayedText = "Level: " + levelNumber;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -77,6 +82,7 @@ namespace Mind_the_Gap.Scenes
             DrawGame(spriteBatch);
             DrawGUI(spriteBatch);
         }
+
         private void DrawGame(SpriteBatch spriteBatch)
         {
             currentLevel.Draw(spriteBatch);
@@ -84,6 +90,7 @@ namespace Mind_the_Gap.Scenes
             if(currentLevel.DrawAndUpdatePlayer)
                 player.Draw(spriteBatch);
         }
+
         private void DrawGUI(SpriteBatch spriteBatch)
         {
             levelNumberText.Draw(spriteBatch);
@@ -99,10 +106,18 @@ namespace Mind_the_Gap.Scenes
             restartTextButton.Draw(spriteBatch);
         }
 
+        private void StartNextLevel()
+        {
+            levelNumber++;
+            currentLevel = levels[levelNumber - 1];
+            RestartLevel();
+        }
+
         private void RestartLevel()
         {
             Load();
         }
+
         private void RestartTextButton_OnClick(object sender, System.EventArgs e)
         {
             RestartLevel();
