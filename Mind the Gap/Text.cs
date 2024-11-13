@@ -9,12 +9,11 @@ namespace Mind_the_Gap
         public string DisplayedText { get; set; }
         public Color Color { get; set; }
         public SpriteFont Font { get; set; }
-
-        private readonly Vector2 position;
+        public Vector2 Position { get; private set; }
 
         public Text(Vector2 position, Color color, string text)
         {
-            this.position = position;
+            Position = position;
             Color = color;
             DisplayedText = text;
             Font = null;
@@ -22,7 +21,7 @@ namespace Mind_the_Gap
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(Font, DisplayedText, position, Color);
+            spriteBatch.DrawString(Font, DisplayedText, Position, Color);
         }
 
 

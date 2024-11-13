@@ -11,6 +11,7 @@ namespace Mind_the_Gap.Scenes
         #region consts
         private static readonly Vector2 LEVEL_NUM_TXT_POS = new(32, (12 * 64) + 20);
         private static readonly Vector2 WALK_ON_TXT_POS = new(4 * 64, (12 * 64) + 20);
+        private static readonly Vector2 RESTART_BUTT_POS = new(13 * 64, (12 * 64) + 20);
         private static readonly Vector2 PLAYER_SIZE = new(14, 14);
         private static readonly Vector2 GRID_SIZE = new(20, 12);
         private static readonly Vector2 WALKABLE_TILE_ICON_POS = new(430, (12 * 64) + 8);
@@ -24,6 +25,7 @@ namespace Mind_the_Gap.Scenes
         private readonly Text walkOnText;
         private readonly int levelNumber = 1;
         private Player player;
+        private TextButton restartTextButton;
 
         public Game(ContentManager contentManager)
         {
@@ -36,7 +38,10 @@ namespace Mind_the_Gap.Scenes
 
             levelNumberText = new(LEVEL_NUM_TXT_POS, Color.White, "Level: " + levelNumber);
             walkOnText = new(WALK_ON_TXT_POS, Color.White, "Memorize a path!");
+            restartTextButton = new("Restart", RESTART_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
+            restartTextButton.OnClick += RestartTextButton_OnClick;
         }
+
 
         public void Load()
         {
@@ -51,6 +56,7 @@ namespace Mind_the_Gap.Scenes
             SpriteFont gameFont = contentManager.Load<SpriteFont>("game_font");
             levelNumberText.Font = gameFont;
             walkOnText.Font = gameFont;
+            restartTextButton.Font = gameFont;
         }
 
         public void Update(GameTime gameTime)
@@ -61,7 +67,9 @@ namespace Mind_the_Gap.Scenes
                 player.Update(gameTime);
 
             if(currentLevel.GameOver)
-                Load();
+                RestartLevel();
+
+            restartTextButton.Update();
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -88,6 +96,16 @@ namespace Mind_the_Gap.Scenes
             }
 
             walkOnText.Draw(spriteBatch);
+            restartTextButton.Draw(spriteBatch);
+        }
+
+        private void RestartLevel()
+        {
+            Load();
+        }
+        private void RestartTextButton_OnClick(object sender, System.EventArgs e)
+        {
+            RestartLevel();
         }
     }
 }
