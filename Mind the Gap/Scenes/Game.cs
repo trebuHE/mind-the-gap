@@ -11,7 +11,8 @@ namespace Mind_the_Gap.Scenes
         #region consts
         private static readonly Vector2 LEVEL_NUM_TXT_POS = new(32, (12 * 64) + 20);
         private static readonly Vector2 WALK_ON_TXT_POS = new(4 * 64, (12 * 64) + 20);
-        private static readonly Vector2 RESTART_BUTT_POS = new(13 * 64, (12 * 64) + 20);
+        private static readonly Vector2 RESTART_BUTT_POS = new(12.5f * 64, (12 * 64) + 20);
+        private static readonly Vector2 MAIN_MENU_BUTT_POS = new(16 * 64, (12 * 64) + 20);
         private static readonly Vector2 PLAYER_SIZE = new(14, 14);
         private static readonly Vector2 GRID_SIZE = new(20, 12);
         private static readonly Vector2 WALKABLE_TILE_ICON_POS = new(430, (12 * 64) + 8);
@@ -26,6 +27,7 @@ namespace Mind_the_Gap.Scenes
         private Level currentLevel;
         private Player player;
         private TextButton restartTextButton;
+        private TextButton mainMenuTextButton;
 
         public Game(ContentManager contentManager)
         {
@@ -39,10 +41,12 @@ namespace Mind_the_Gap.Scenes
 
             levelNumberText = new(LEVEL_NUM_TXT_POS, Color.White, "Level: " + levelNumber);
             walkOnText = new(WALK_ON_TXT_POS, Color.White, "Memorize a path!");
+
             restartTextButton = new("Restart", RESTART_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
             restartTextButton.OnClick += RestartTextButton_OnClick;
+            mainMenuTextButton = new("Main menu", MAIN_MENU_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
+            mainMenuTextButton.OnClick += MainMenuTextButton_OnClick;
         }
-
 
         public void Load()
         {
@@ -58,6 +62,7 @@ namespace Mind_the_Gap.Scenes
             levelNumberText.Font = gameFont;
             walkOnText.Font = gameFont;
             restartTextButton.Font = gameFont;
+            mainMenuTextButton.Font = gameFont;
         }
 
         public void Update(GameTime gameTime)
@@ -75,6 +80,7 @@ namespace Mind_the_Gap.Scenes
 
             restartTextButton.Update();
             levelNumberText.DisplayedText = "Level: " + levelNumber;
+            mainMenuTextButton.Update();
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -104,6 +110,7 @@ namespace Mind_the_Gap.Scenes
 
             walkOnText.Draw(spriteBatch);
             restartTextButton.Draw(spriteBatch);
+            mainMenuTextButton.Draw(spriteBatch);
         }
 
         private void StartNextLevel()
@@ -121,6 +128,10 @@ namespace Mind_the_Gap.Scenes
         private void RestartTextButton_OnClick(object sender, System.EventArgs e)
         {
             RestartLevel();
+        }
+        private void MainMenuTextButton_OnClick(object sender, System.EventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
