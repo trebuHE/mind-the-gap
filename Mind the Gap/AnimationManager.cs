@@ -1,22 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace Mind_the_Gap
 {
-    public enum Animations
+    internal class AnimationManager<T> where T : Enum
     {
-        IDLE_DOWN,
-        IDLE_RIGHT,
-        IDLE_LEFT,
-        IDLE_UP,
-        WALK_DOWN,
-        WALK_RIGHT,
-        WALK_LEFT,
-        WALK_UP
-    }
-    internal class AnimationManager
-    {
-        public Animations ActiveAnimation
+        public T ActiveAnimation
         {
             set
             {
@@ -42,12 +32,11 @@ namespace Mind_the_Gap
         }
 
         private Animation activeAnimation;
-        private readonly Dictionary<Animations, Animation> animations;
-        public AnimationManager(Dictionary<Animations, Animation> animations)
+        private readonly Dictionary<T, Animation> animations;
+        public AnimationManager(Dictionary<T, Animation> animations)
         {
             this.animations = animations;
-            ActiveAnimation = 0;
-            activeAnimation = this.animations[0];
+            ActiveAnimation = default;
         }
 
         public void Update(GameTime gameTime)
