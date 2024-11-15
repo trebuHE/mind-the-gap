@@ -17,21 +17,8 @@ namespace Mind_the_Gap
         WALK_UP
     }
 
-    public enum HealthState
-    {
-        FULL = 4,
-        THREE_QUARTERS = 3,
-        HALF = 2,
-        ONE_QUARTER = 1,
-        NONE = 0
-    }
-
     internal class Player : Sprite
     {
-        #region consts
-        private static readonly Vector2 HEART_ICON_SIZE = new(16, 16);
-        #endregion
-
         public Vector2 GridPosition
         {
             get
@@ -54,7 +41,6 @@ namespace Mind_the_Gap
         private bool takeInputS;
         private bool takeInputW;
         private readonly AnimationManager<WalkAnimations> walkAnimationManager;
-        public readonly AnimationManager<HealthState> healthStateManager;
         private readonly int gridCellSize;
         private readonly Vector2 gridSize;
         private readonly float step = 1;
@@ -74,14 +60,7 @@ namespace Mind_the_Gap
             });
             walkAnimationManager.ActiveAnimation = WalkAnimations.IDLE_DOWN;
 
-            healthStateManager = new(new Dictionary<HealthState, Animation>() {
-                {HealthState.FULL,           new Animation(1, 0, HEART_ICON_SIZE) },
-                {HealthState.THREE_QUARTERS, new Animation(1, 1, HEART_ICON_SIZE) },
-                {HealthState.HALF,           new Animation(1, 2, HEART_ICON_SIZE) },
-                {HealthState.ONE_QUARTER,    new Animation(1, 3, HEART_ICON_SIZE) },
-                {HealthState.NONE,           new Animation(1, 4, HEART_ICON_SIZE) },
-            });
-            healthStateManager.ActiveAnimation = HealthState.FULL;
+
 
             gridCellSize = stepSize;
             GridPosition = position;

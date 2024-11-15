@@ -6,6 +6,15 @@ using System.Linq;
 
 namespace Mind_the_Gap.Scenes
 {
+    public enum HealthState
+    {
+        FULL = 4,
+        THREE_QUARTERS = 3,
+        HALF = 2,
+        ONE_QUARTER = 1,
+        NONE = 0
+    }
+
     internal class Game : IScene
     {
         #region consts
@@ -19,6 +28,7 @@ namespace Mind_the_Gap.Scenes
         private static readonly Vector2 WALKABLE_TILE_ICON_POS = new(430, (12 * 64) + 8);
         private static readonly Vector2 WALKABLE_TILE_ICON_SIZE = new(48, 48);
         private static readonly Vector2 HEALTH_STATE_ICON_SIZE = new(32, 32);
+        private static readonly Vector2 HEART_ICON_SIZE = new(16, 16);
         #endregion
 
         private readonly ContentManager contentManager;
@@ -26,6 +36,7 @@ namespace Mind_the_Gap.Scenes
         private readonly Text levelNumberText;
         private readonly Text walkOnText;
         private Sprite healthStateIcon;
+        private AnimationManager<HealthState> healthStateManager;
         private int levelNumber = 1;
         private Level currentLevel;
         private Player player;
@@ -41,6 +52,15 @@ namespace Mind_the_Gap.Scenes
                 new("../../../data/levels/level_test2/level_test2_path.csv", "../../../data/levels/level_test2/level_test2_game.csv", 1f, new Vector2(3, 5), 17, contentManager)
             };
             currentLevel = levels.First();
+
+            healthStateManager = new(new Dictionary<HealthState, Animation>() {
+                {HealthState.FULL,           new Animation(1, 0, HEART_ICON_SIZE) },
+                {HealthState.THREE_QUARTERS, new Animation(1, 1, HEART_ICON_SIZE) },
+                {HealthState.HALF,           new Animation(1, 2, HEART_ICON_SIZE) },
+                {HealthState.ONE_QUARTER,    new Animation(1, 3, HEART_ICON_SIZE) },
+                {HealthState.NONE,           new Animation(1, 4, HEART_ICON_SIZE) },
+            });
+            healthStateManager.ActiveAnimation = HealthState.FULL;
 
             levelNumberText = new(LEVEL_NUM_TXT_POS, Color.White, "Level: " + levelNumber);
             walkOnText = new(WALK_ON_TXT_POS, Color.White, "Memorize a path!");
@@ -112,7 +132,7 @@ namespace Mind_the_Gap.Scenes
             {
                 walkOnText.DisplayedText = "Walk on: ";
                 currentLevel.GameMap.Draw(spriteBatch, currentLevel.WalkableTile, WALKABLE_TILE_ICON_POS, WALKABLE_TILE_ICON_SIZE);
-                spriteBatch.Draw(healthStateIcon.Texture, healthStateIcon.DestinationRect, player.healthStateManager.SourceRect, Color.White);
+                spriteBatch.Draw(healthStateIcon.Texture, healthStateIcon.DestinationRect, healthStateManager.SourceRect, Color.White);
             }
 
             walkOnText.Draw(spriteBatch);
