@@ -13,16 +13,19 @@ namespace Mind_the_Gap.Scenes
         private static readonly Vector2 WALK_ON_TXT_POS = new(4 * 64, (12 * 64) + 20);
         private static readonly Vector2 RESTART_BUTT_POS = new(12.5f * 64, (12 * 64) + 20);
         private static readonly Vector2 MAIN_MENU_BUTT_POS = new(16 * 64, (12 * 64) + 20);
+        private static readonly Vector2 HEALTH_STATE_ICON_POS = new((10 * 64) - 32, 12 * 64);
         private static readonly Vector2 PLAYER_SIZE = new(14, 14);
         private static readonly Vector2 GRID_SIZE = new(20, 12);
         private static readonly Vector2 WALKABLE_TILE_ICON_POS = new(430, (12 * 64) + 8);
         private static readonly Vector2 WALKABLE_TILE_ICON_SIZE = new(48, 48);
+        private static readonly Vector2 HEALTH_STATE_ICON_SIZE = new(16, 16);
         #endregion
 
         private readonly ContentManager contentManager;
         private readonly List<Level> levels;
         private readonly Text levelNumberText;
         private readonly Text walkOnText;
+        private Sprite healthStateIcon;
         private int levelNumber = 1;
         private Level currentLevel;
         private Player player;
@@ -46,6 +49,7 @@ namespace Mind_the_Gap.Scenes
             restartTextButton.OnClick += RestartTextButton_OnClick;
             mainMenuTextButton = new("Main menu", MAIN_MENU_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
             mainMenuTextButton.OnClick += MainMenuTextButton_OnClick;
+            healthStateIcon = new(HEALTH_STATE_ICON_POS, HEALTH_STATE_ICON_SIZE);
         }
 
         public void Load()
@@ -56,6 +60,8 @@ namespace Mind_the_Gap.Scenes
             // textures
             Texture2D texture = contentManager.Load<Texture2D>("player_sprite_sheet");
             player.Texture = texture;
+            texture = contentManager.Load<Texture2D>("player_heart_sheet");
+            healthStateIcon.Texture = texture;
 
             // fonts
             SpriteFont gameFont = contentManager.Load<SpriteFont>("game_font");
@@ -106,6 +112,7 @@ namespace Mind_the_Gap.Scenes
             {
                 walkOnText.DisplayedText = "Walk on: ";
                 currentLevel.GameMap.Draw(spriteBatch, currentLevel.WalkableTile, WALKABLE_TILE_ICON_POS, WALKABLE_TILE_ICON_SIZE);
+                spriteBatch.Draw(healthStateIcon.Texture, healthStateIcon.DestinationRect, player.healthStateManager.SourceRect, Color.White);
             }
 
             walkOnText.Draw(spriteBatch);

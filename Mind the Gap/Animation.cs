@@ -27,6 +27,14 @@ namespace Mind_the_Gap
             interval = loopTime / frames;
         }
 
+        public Animation(int frames, int row, Vector2 frameSize)
+        {
+            this.frames = frames;
+            this.row = row;
+            this.frameSize = frameSize;
+            activeFrame = 0;
+        }
+
         public void Update(GameTime gameTime)
         {
             if(frames > 1)
