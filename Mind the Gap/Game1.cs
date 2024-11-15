@@ -8,7 +8,6 @@ namespace Mind_the_Gap
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private SceneManager sceneManager;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -23,7 +22,6 @@ namespace Mind_the_Gap
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            sceneManager = new();
 
             base.Initialize();
         }
@@ -34,7 +32,7 @@ namespace Mind_the_Gap
 
             // TODO: use this.Content to load your game content here
 
-            sceneManager.AddScene(new Scenes.Game(Content));
+            SceneManager.AddScene(new Scenes.Game(Content));
         }
 
         protected override void Update(GameTime gameTime)
@@ -42,7 +40,7 @@ namespace Mind_the_Gap
 
             // TODO: Add your update logic here
             Timer.UpdateTimers(gameTime);
-            sceneManager.CurrentScene.Update(gameTime);
+            SceneManager.CurrentScene.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -55,7 +53,7 @@ namespace Mind_the_Gap
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp); // scaling method used for pixel-art
 
-            sceneManager.CurrentScene.Draw(_spriteBatch);
+            SceneManager.CurrentScene.Draw(_spriteBatch);
 
             _spriteBatch.End();
             base.Draw(gameTime);

@@ -2,9 +2,9 @@
 
 namespace Mind_the_Gap
 {
-    internal class SceneManager
+    internal static class SceneManager
     {
-        public IScene CurrentScene
+        public static IScene CurrentScene
         {
             get
             {
@@ -13,20 +13,15 @@ namespace Mind_the_Gap
             private set { }
         }
 
-        private readonly Stack<IScene> scenes;
+        private static Stack<IScene> scenes = new();
 
-        public SceneManager()
-        {
-            scenes = new();
-        }
-
-        public void AddScene(IScene scene)
+        public static void AddScene(IScene scene)
         {
             scenes.Push(scene);
             scene.Load();
         }
 
-        public void RemoveScene(IScene scene)
+        public static void RemoveScene(IScene scene)
         {
             scenes.Pop();
         }
