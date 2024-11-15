@@ -35,14 +35,14 @@ namespace Mind_the_Gap
         public Player(Vector2 position, Vector2 size, int stepSize, Vector2 gridSize) : base(position * stepSize, size)
         {
             animationManager = new(new Dictionary<Animations, Animation>() {
-                { Animations.IDLE_DOWN, new Animation(2, 0, size) },
-                { Animations.IDLE_RIGHT,new Animation(2, 1, size) },
-                { Animations.IDLE_LEFT, new Animation(2, 2, size) },
-                { Animations.IDLE_UP,   new Animation(2, 3, size) },
-                { Animations.WALK_DOWN, new Animation(4, 4, size) },
-                { Animations.WALK_RIGHT,new Animation(4, 5, size) },
-                { Animations.WALK_LEFT, new Animation(4, 6, size) },
-                { Animations.WALK_UP,   new Animation(4, 7, size) },
+                { Animations.IDLE_DOWN, new Animation(2, 0, 0.9f, size) },
+                { Animations.IDLE_RIGHT,new Animation(2, 1, 0.9f, size) },
+                { Animations.IDLE_LEFT, new Animation(2, 2, 0.9f, size) },
+                { Animations.IDLE_UP,   new Animation(2, 3, 0.9f, size) },
+                { Animations.WALK_DOWN, new Animation(4, 4, 0.9f, size) },
+                { Animations.WALK_RIGHT,new Animation(4, 5, 0.9f, size) },
+                { Animations.WALK_LEFT, new Animation(4, 6, 0.9f, size) },
+                { Animations.WALK_UP,   new Animation(4, 7, 0.9f, size) },
             });
 
             animationManager.ActiveAnimation = Animations.IDLE_DOWN;

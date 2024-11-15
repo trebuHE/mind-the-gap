@@ -12,31 +12,32 @@ namespace Mind_the_Gap
         private readonly int frames;
         private readonly int row;
         private readonly Vector2 frameSize;
-        private readonly float loopTime;
         private readonly float interval;
 
         /// <param name="frames">number of frames in the animation</param>
         /// <param name="row">index of a row in a sprite sheet, starting at 0</param>
         /// <param name="frameSize">size of each animation frame</param>
-        public Animation(int frames, int row, Vector2 frameSize)
+        /// <param name="loopTime">time in secondsafter which animation loops</param>
+        public Animation(int frames, int row, float loopTime, Vector2 frameSize)
         {
             this.frames = frames;
             this.row = row;
             this.frameSize = frameSize;
             activeFrame = 0;
-            loopTime = 0.9f; // time in seconds
             interval = loopTime / frames;
         }
 
         public void Update(GameTime gameTime)
         {
-            counter += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if(counter > interval)
+            if(frames > 1)
             {
-                counter = 0;
-                NextFrame();
+                counter += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if(counter > interval)
+                {
+                    counter = 0;
+                    NextFrame();
+                }
             }
-
         }
 
         private void NextFrame()
