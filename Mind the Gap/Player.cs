@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Mind_the_Gap
 {
@@ -31,10 +32,12 @@ namespace Mind_the_Gap
                 targetPos.Y = (int)(value.Y * gridCellSize);
             }
         }
+        public int Health { get; private set; }
+        public bool Alive { get; private set; }
 
         private Vector2 velocity;
         private Vector2 targetPos;
-        private int health;
+        private Vector2 spawnPos;
         private bool canMove;
         private bool takeInputD;
         private bool takeInputA;
@@ -44,7 +47,7 @@ namespace Mind_the_Gap
         private readonly int gridCellSize;
         private readonly Vector2 gridSize;
         private readonly float step = 1;
-        private readonly int maxHealth = 4;
+        private readonly int maxHealth = 5;
 
         public Player(Vector2 position, Vector2 size, int stepSize, Vector2 gridSize) : base(position * stepSize, size)
         {
@@ -70,8 +73,10 @@ namespace Mind_the_Gap
             takeInputA = true;
             takeInputS = true;
             takeInputW = true;
-            targetPos = position * stepSize;
-            health = maxHealth;
+            spawnPos = position * stepSize;
+            targetPos = spawnPos;
+            Health = maxHealth;
+            Alive = true;
         }
 
         public override void Update(GameTime gameTime)
@@ -89,12 +94,21 @@ namespace Mind_the_Gap
             spriteBatch.Draw(Texture, DestinationRect, walkAnimationManager.SourceRect, Color.White);
         }
 
+        public void Restart()
+        {
+            position = spawnPos;
+            targetPos = spawnPos;
+            walkAnimationManager.ActiveAnimation = WalkAnimations.IDLE_DOWN;
+        }
+
         public void DecrementHealth()
         {
-            health--;
-            if(health <= 0)
+            Health--;
+            if(Health <= 0)
             {
-                //DIE
+                // DIE
+                Debug.WriteLine("PLAYER IS DEAD");
+                Alive = false;
             }
         }
 

@@ -31,6 +31,8 @@ namespace Mind_the_Gap.Scenes
         private static readonly Vector2 HEART_ICON_SIZE = new(16, 16);
         #endregion
 
+        public bool GameOver { get; private set; }
+
         private readonly ContentManager contentManager;
         private readonly List<Level> levels;
         private readonly Text levelNumberText;
@@ -70,6 +72,7 @@ namespace Mind_the_Gap.Scenes
             mainMenuTextButton = new("Main menu", MAIN_MENU_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
             mainMenuTextButton.OnClick += MainMenuTextButton_OnClick;
             healthStateIcon = new(HEALTH_STATE_ICON_POS, HEALTH_STATE_ICON_SIZE, 2);
+            GameOver = false;
         }
 
         public void Load()
@@ -99,7 +102,12 @@ namespace Mind_the_Gap.Scenes
                 player.Update(gameTime);
 
             if(currentLevel.Failed)
+            {
+                player.DecrementHealth();
+                if(!player.Alive)
+                    GameOver = true;
                 RestartLevel();
+            }
 
             if(currentLevel.Finished)
                 StartNextLevel();
@@ -107,6 +115,7 @@ namespace Mind_the_Gap.Scenes
             restartTextButton.Update();
             levelNumberText.DisplayedText = "Level: " + levelNumber;
             mainMenuTextButton.Update();
+            healthStateManager.ActiveAnimation = (HealthState)player.Health - 1;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -149,11 +158,13 @@ namespace Mind_the_Gap.Scenes
 
         private void RestartLevel()
         {
-            Load();
+            currentLevel.Load();
+            player.Restart();
         }
 
         private void RestartTextButton_OnClick(object sender, System.EventArgs e)
         {
+            player.DecrementHealth();
             RestartLevel();
         }
         private void MainMenuTextButton_OnClick(object sender, System.EventArgs e)
