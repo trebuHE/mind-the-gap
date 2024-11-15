@@ -24,12 +24,12 @@ namespace Mind_the_Gap
         {
             foreach(var tile in map)
             {
-                position = tile.Key * size * SCALE;
+                position = tile.Key * size * scale;
                 Rectangle destRect = new(
                     (int)position.X,
                     (int)position.Y,
-                    (int)size.X * SCALE,
-                    (int)size.Y * SCALE);
+                    (int)size.X * scale,
+                    (int)size.Y * scale);
 
                 int x = tile.Value % tilesPerRow;
                 int y = tile.Value / tilesPerRow;

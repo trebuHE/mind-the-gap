@@ -18,7 +18,7 @@ namespace Mind_the_Gap.Scenes
         private static readonly Vector2 GRID_SIZE = new(20, 12);
         private static readonly Vector2 WALKABLE_TILE_ICON_POS = new(430, (12 * 64) + 8);
         private static readonly Vector2 WALKABLE_TILE_ICON_SIZE = new(48, 48);
-        private static readonly Vector2 HEALTH_STATE_ICON_SIZE = new(16, 16);
+        private static readonly Vector2 HEALTH_STATE_ICON_SIZE = new(32, 32);
         #endregion
 
         private readonly ContentManager contentManager;
@@ -49,7 +49,7 @@ namespace Mind_the_Gap.Scenes
             restartTextButton.OnClick += RestartTextButton_OnClick;
             mainMenuTextButton = new("Main menu", MAIN_MENU_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
             mainMenuTextButton.OnClick += MainMenuTextButton_OnClick;
-            healthStateIcon = new(HEALTH_STATE_ICON_POS, HEALTH_STATE_ICON_SIZE);
+            healthStateIcon = new(HEALTH_STATE_ICON_POS, HEALTH_STATE_ICON_SIZE, 2);
         }
 
         public void Load()

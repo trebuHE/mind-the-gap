@@ -13,19 +13,20 @@ namespace Mind_the_Gap
                 return new Rectangle(
                     (int)position.X,
                     (int)position.Y,
-                    (int)size.X * SCALE,
-                    (int)size.Y * SCALE);
+                    (int)size.X * scale,
+                    (int)size.Y * scale);
             }
         }
 
         protected Vector2 position;
         protected Vector2 size;
-        protected static readonly int SCALE = 4;
+        protected readonly int scale = 4;
 
-        public Sprite(Vector2 position, Vector2 size)
+        public Sprite(Vector2 position, Vector2 size, int scale = 4)
         {
             this.position = position;
             this.size = size;
+            this.scale = scale;
         }
 
         public virtual void Update(GameTime gameTime)
