@@ -6,20 +6,36 @@ using System.Diagnostics;
 
 namespace Mind_the_Gap
 {
-    public enum WalkAnimations
-    {
-        IDLE_DOWN,
-        IDLE_RIGHT,
-        IDLE_LEFT,
-        IDLE_UP,
-        WALK_DOWN,
-        WALK_RIGHT,
-        WALK_LEFT,
-        WALK_UP
-    }
-
     internal class Player : Sprite
     {
+        private enum WalkAnimations
+        {
+            IDLE_DOWN,
+            IDLE_RIGHT,
+            IDLE_LEFT,
+            IDLE_UP,
+            WALK_DOWN,
+            WALK_RIGHT,
+            WALK_LEFT,
+            WALK_UP
+        }
+
+        private struct MovementMap
+        {
+            public MovementMap(Keys up, Keys down, Keys left, Keys right)
+            {
+                this.up = up;
+                this.down = down;
+                this.left = left;
+                this.right = right;
+            }
+
+            public Keys up;
+            public Keys down;
+            public Keys left;
+            public Keys right;
+        }
+
         public Vector2 GridPosition
         {
             get
@@ -39,15 +55,17 @@ namespace Mind_the_Gap
         private Vector2 targetPos;
         private Vector2 spawnPos;
         private bool canMove;
-        private bool takeInputD;
-        private bool takeInputA;
-        private bool takeInputS;
-        private bool takeInputW;
+        private bool takeInputRight;
+        private bool takeInputLeft;
+        private bool takeInputDown;
+        private bool takeInputUp;
         private readonly AnimationManager<WalkAnimations> walkAnimationManager;
         private readonly int gridCellSize;
         private readonly Vector2 gridSize;
         private readonly float step = 1;
         private readonly int maxHealth = 5;
+        private readonly UserSettings settings;
+        private readonly MovementMap movementMap;
 
         public Player(Vector2 position, Vector2 size, int stepSize, Vector2 gridSize) : base(position * stepSize, size)
         {
@@ -63,16 +81,27 @@ namespace Mind_the_Gap
             });
             walkAnimationManager.ActiveAnimation = WalkAnimations.IDLE_DOWN;
 
+            settings = new();
+            settings = UserSettings.Load();
+
+            if(settings.ActiveControlScheme == UserSettings.ControlScheme.WASD)
+            {
+                movementMap = new(Keys.W, Keys.S, Keys.A, Keys.D);
+            }
+            else if(settings.ActiveControlScheme == UserSettings.ControlScheme.ARROWS)
+            {
+                movementMap = new(Keys.Up, Keys.Down, Keys.Left, Keys.Right);
+            }
 
 
             gridCellSize = stepSize;
             GridPosition = position;
             this.gridSize = gridSize;
             canMove = true;
-            takeInputD = true;
-            takeInputA = true;
-            takeInputS = true;
-            takeInputW = true;
+            takeInputRight = true;
+            takeInputLeft = true;
+            takeInputDown = true;
+            takeInputUp = true;
             spawnPos = position * stepSize;
             targetPos = spawnPos;
             Health = maxHealth;
@@ -118,48 +147,48 @@ namespace Mind_the_Gap
             if(canMove)
             {
                 //right
-                if(takeInputD && Keyboard.GetState().IsKeyDown(Keys.D) && GridPosition.X < gridSize.X - 1)
+                if(takeInputRight && Keyboard.GetState().IsKeyDown(movementMap.right) && GridPosition.X < gridSize.X - 1)
                 {
                     prevGridPos.X += 1;
                     GridPosition = prevGridPos;
                     canMove = false;
-                    takeInputD = false;
+                    takeInputRight = false;
                 }
-                if(Keyboard.GetState().IsKeyUp(Keys.D))
-                    takeInputD = true;
+                if(Keyboard.GetState().IsKeyUp(movementMap.right))
+                    takeInputRight = true;
 
                 //left
-                if(takeInputA && Keyboard.GetState().IsKeyDown(Keys.A) && GridPosition.X > 0)
+                if(takeInputLeft && Keyboard.GetState().IsKeyDown(movementMap.left) && GridPosition.X > 0)
                 {
                     prevGridPos.X -= 1;
                     GridPosition = prevGridPos;
                     canMove = false;
-                    takeInputA = false;
+                    takeInputLeft = false;
                 }
-                if(!Keyboard.GetState().IsKeyDown(Keys.A))
-                    takeInputA = true;
+                if(!Keyboard.GetState().IsKeyDown(movementMap.left))
+                    takeInputLeft = true;
 
                 //up
-                if(takeInputW && Keyboard.GetState().IsKeyDown(Keys.W) && GridPosition.Y > 0)
+                if(takeInputUp && Keyboard.GetState().IsKeyDown(movementMap.up) && GridPosition.Y > 0)
                 {
                     prevGridPos.Y -= 1;
                     GridPosition = prevGridPos;
                     canMove = false;
-                    takeInputW = false;
+                    takeInputUp = false;
                 }
-                if(!Keyboard.GetState().IsKeyDown(Keys.W))
-                    takeInputW = true;
+                if(!Keyboard.GetState().IsKeyDown(movementMap.up))
+                    takeInputUp = true;
 
                 //down
-                if(takeInputS && Keyboard.GetState().IsKeyDown(Keys.S) && GridPosition.Y < gridSize.Y - 1)
+                if(takeInputDown && Keyboard.GetState().IsKeyDown(movementMap.down) && GridPosition.Y < gridSize.Y - 1)
                 {
                     prevGridPos.Y += 1;
                     GridPosition = prevGridPos;
                     canMove = false;
-                    takeInputS = false;
+                    takeInputDown = false;
                 }
-                if(!Keyboard.GetState().IsKeyDown(Keys.S))
-                    takeInputS = true;
+                if(!Keyboard.GetState().IsKeyDown(movementMap.down))
+                    takeInputDown = true;
             }
         }
 
