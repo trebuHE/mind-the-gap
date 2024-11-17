@@ -15,7 +15,7 @@ namespace Mind_the_Gap
         private readonly Color clickColor;
         private Rectangle hitbox;
 
-        public TextButton(string text, Vector2 position, Color color, Color hoverColor, Color clickColor) : base(position, color, text)
+        public TextButton(string text, Vector2 position, Color color, Color hoverColor, Color clickColor) : base(text, position, color)
         {
             this.color = color;
             this.hoverColor = hoverColor;

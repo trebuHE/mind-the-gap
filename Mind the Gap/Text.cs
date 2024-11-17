@@ -11,7 +11,7 @@ namespace Mind_the_Gap
         public SpriteFont Font { get; set; }
         public Vector2 Position { get; private set; }
 
-        public Text(Vector2 position, Color color, string text)
+        public Text(string text, Vector2 position, Color color)
         {
             Position = position;
             Color = color;

@@ -62,8 +62,8 @@ namespace Mind_the_Gap.Scenes
             });
             healthStateManager.ActiveAnimation = HealthState.FULL;
 
-            levelNumberText = new(LEVEL_NUM_TXT_POS, Color.White, "Level: " + levelNumber);
-            walkOnText = new(WALK_ON_TXT_POS, Color.White, "Memorize a path!");
+            levelNumberText = new("Level: " + levelNumber, LEVEL_NUM_TXT_POS, Color.White);
+            walkOnText = new("Memorize a path!", WALK_ON_TXT_POS, Color.White);
 
             restartTextButton = new("Restart", RESTART_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
             restartTextButton.OnClick += RestartTextButton_OnClick;
