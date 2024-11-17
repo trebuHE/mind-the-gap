@@ -56,12 +56,12 @@ namespace Mind_the_Gap.Scenes
 
         private void OptionsButton_OnClick(object sender, System.EventArgs e)
         {
-            throw new System.NotImplementedException();
+            SceneManager.AddScene(new OptionsMenu(contentManager));
         }
 
         private void NewGameButton_OnClick(object sender, System.EventArgs e)
         {
-            SceneManager.AddScene(new Scenes.Game(contentManager));
+            SceneManager.AddScene(new Game(contentManager));
         }
     }
 }
