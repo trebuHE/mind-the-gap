@@ -20,6 +20,13 @@
 /processorParam:TextureFormat=Compressed
 /build:game_font.spritefont
 
+#begin main_menu_font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:main_menu_font.spritefont
+
 #begin player_heart_sheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
