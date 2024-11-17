@@ -24,7 +24,7 @@ namespace Mind_the_Gap
         {
             get
             {
-                return new Vector2((int)(position.X / gridCellSize), (int)(position.Y / gridCellSize));
+                return new Vector2((int)((position.X + (size.X * scale / 2)) / gridCellSize), (int)((position.Y + (size.Y * scale / 2)) / gridCellSize));
             }
             private set
             {

@@ -66,12 +66,11 @@ namespace Mind_the_Gap
 
         public void Update(GameTime gameTime, Player player)
         {
-            Vector2 playerGridPos = player.GridPosition;
-            int pathTile = pathMap.GetTileAtPos(playerGridPos);
+            int pathTile = pathMap.GetTileAtPos(player.GridPosition);
 
             if(pathTile == WalkableTile)
             {
-                GameMap.SetTileAtPos(playerGridPos, pathTile);
+                GameMap.SetTileAtPos(player.GridPosition, pathTile);
             }
             else if(forbiddenTiles.Contains(pathTile))
             {
@@ -120,6 +119,7 @@ namespace Mind_the_Gap
 
             forbiddenTiles = new(pool);
             forbiddenTiles.Remove(poolList[i]);
+            forbiddenTiles.Add(1);
             Debug.WriteLine("Forbidden tiles are: " + string.Join(", ", forbiddenTiles));
         }
     }

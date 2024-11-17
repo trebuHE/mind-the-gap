@@ -167,7 +167,7 @@ namespace Mind_the_Gap.Scenes
         }
         private void MainMenuTextButton_OnClick(object sender, System.EventArgs e)
         {
-            throw new System.NotImplementedException();
+            SceneManager.RemoveScene(this);
         }
     }
 }

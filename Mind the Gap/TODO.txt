@@ -1,4 +1,4 @@
 przepisac zachowanie przy wygranej i wczytywaniu kolejnego poziomu
-zaimplementowac smierc gracza -> cofniecie do pierwszego poziomu
+zaimplementowac smierc gracza -> cofniecie do menu glownego
 zaimplementowac pomylke gracza -> odjecie zycia i restart poziomu
 zaprojektowac main game loop
