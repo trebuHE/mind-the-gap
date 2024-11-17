@@ -7,26 +7,29 @@ namespace Mind_the_Gap
 {
     internal class TextButton : Text
     {
+        public bool Active { get; set; }
+
         public event EventHandler OnClick;
+
         private MouseState prevMouseState;
         private MouseState currentMouseState;
+        private Rectangle hitbox;
         private readonly Color color;
         private readonly Color hoverColor;
         private readonly Color clickColor;
-        private Rectangle hitbox;
 
         public TextButton(string text, Vector2 position, Color color, Color hoverColor, Color clickColor) : base(text, position, color)
         {
             this.color = color;
             this.hoverColor = hoverColor;
             this.clickColor = clickColor;
+            Active = true;
         }
 
         public void Update()
         {
             prevMouseState = currentMouseState;
             currentMouseState = Mouse.GetState();
-            Color = color;
             hitbox = new(
                 (int)Position.X,
                 (int)Position.Y,
@@ -34,6 +37,11 @@ namespace Mind_the_Gap
                 (int)Font.MeasureString(DisplayedText).Y);
 
             Rectangle mouseHitbox = new(currentMouseState.X, currentMouseState.Y, 1, 1);
+
+            if(Active)
+                Color = color;
+            else
+                Color = clickColor;
 
             // hovering
             if(mouseHitbox.Intersects(hitbox))
