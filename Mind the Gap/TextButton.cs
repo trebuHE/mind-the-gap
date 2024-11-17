@@ -18,12 +18,13 @@ namespace Mind_the_Gap
         private readonly Color hoverColor;
         private readonly Color clickColor;
 
-        public TextButton(string text, Vector2 position, Color color, Color hoverColor, Color clickColor) : base(text, position, color)
+        public TextButton(string text, Vector2 position, Color color, Color hoverColor, Color clickColor, bool active = true) : base(text, position, color)
         {
             this.color = color;
             this.hoverColor = hoverColor;
             this.clickColor = clickColor;
-            Active = true;
+            Active = active;
+            SetColorOnActive();
         }
 
         public void Update()
@@ -38,10 +39,7 @@ namespace Mind_the_Gap
 
             Rectangle mouseHitbox = new(currentMouseState.X, currentMouseState.Y, 1, 1);
 
-            if(Active)
-                Color = color;
-            else
-                Color = clickColor;
+            SetColorOnActive();
 
             // hovering
             if(Active && mouseHitbox.Intersects(hitbox))
@@ -63,6 +61,14 @@ namespace Mind_the_Gap
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
+        }
+
+        private void SetColorOnActive()
+        {
+            if(Active)
+                Color = color;
+            else
+                Color = clickColor;
         }
     }
 }

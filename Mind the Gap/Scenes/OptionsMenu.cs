@@ -24,13 +24,16 @@ namespace Mind_the_Gap.Scenes
             this.contentManager = contentManager;
             backButton = new("BACK", BACK_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
             backButton.OnClick += BackButton_OnClick;
-            WASDButton = new("WASD", WASD_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
+
+            WASDButton = new("WASD", WASD_BUTT_POS, Color.White, Color.LightGray, Color.Gray, active: false);
+            WASDButton.OnClick += WASDButton_OnClick;
 
             arrowsButton = new("Arrows", ARROWS_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
-
+            arrowsButton.OnClick += ArrowsButton_OnClick;
 
             controlSchemeText = new("Control scheme: ", CTRL_SCHEME_TXT_POS, Color.White);
         }
+
 
         public void Load()
         {
@@ -63,6 +66,17 @@ namespace Mind_the_Gap.Scenes
 
             // close scene
             SceneManager.RemoveScene(this);
+        }
+        private void ArrowsButton_OnClick(object sender, System.EventArgs e)
+        {
+            arrowsButton.Active = false;
+            WASDButton.Active = true;
+        }
+
+        private void WASDButton_OnClick(object sender, System.EventArgs e)
+        {
+            WASDButton.Active = false;
+            arrowsButton.Active = true;
         }
 
     }
