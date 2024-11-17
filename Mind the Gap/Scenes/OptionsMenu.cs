@@ -14,6 +14,7 @@ namespace Mind_the_Gap.Scenes
         #endregion
 
         private readonly ContentManager contentManager;
+        private UserSettings settings;
         private TextButton backButton;
         private TextButton WASDButton;
         private TextButton arrowsButton;
@@ -22,18 +23,31 @@ namespace Mind_the_Gap.Scenes
         public OptionsMenu(ContentManager contentManager)
         {
             this.contentManager = contentManager;
+            settings = new();
+            settings = UserSettings.Load();
             backButton = new("BACK", BACK_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
             backButton.OnClick += BackButton_OnClick;
 
-            WASDButton = new("WASD", WASD_BUTT_POS, Color.White, Color.LightGray, Color.Gray, active: false);
-            WASDButton.OnClick += WASDButton_OnClick;
+            if(settings.ActiveControlScheme == UserSettings.ControlScheme.WASD)
+            {
+                WASDButton = new("WASD", WASD_BUTT_POS, Color.White, Color.LightGray, Color.Gray, active: false);
+                WASDButton.OnClick += WASDButton_OnClick;
 
-            arrowsButton = new("Arrows", ARROWS_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
-            arrowsButton.OnClick += ArrowsButton_OnClick;
+                arrowsButton = new("Arrows", ARROWS_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
+                arrowsButton.OnClick += ArrowsButton_OnClick;
+
+            }
+            else
+            {
+                WASDButton = new("WASD", WASD_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
+                WASDButton.OnClick += WASDButton_OnClick;
+
+                arrowsButton = new("Arrows", ARROWS_BUTT_POS, Color.White, Color.LightGray, Color.Gray, active: false);
+                arrowsButton.OnClick += ArrowsButton_OnClick;
+            }
 
             controlSchemeText = new("Control scheme: ", CTRL_SCHEME_TXT_POS, Color.White);
         }
-
 
         public void Load()
         {
@@ -63,6 +77,7 @@ namespace Mind_the_Gap.Scenes
         private void BackButton_OnClick(object sender, System.EventArgs e)
         {
             // save settings
+            settings.Save();
 
             // close scene
             SceneManager.RemoveScene(this);
@@ -71,12 +86,14 @@ namespace Mind_the_Gap.Scenes
         {
             arrowsButton.Active = false;
             WASDButton.Active = true;
+            settings.ActiveControlScheme = UserSettings.ControlScheme.ARROWS;
         }
 
         private void WASDButton_OnClick(object sender, System.EventArgs e)
         {
             WASDButton.Active = false;
             arrowsButton.Active = true;
+            settings.ActiveControlScheme = UserSettings.ControlScheme.WASD;
         }
 
     }

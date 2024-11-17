@@ -1,4 +1,3 @@
-zaimplementowac zmiane, zapiosywanie i wczytywanie ustawien
 zmienic obsluge inputu, zeby brala pod uwage ustawienia
 przepisac zachowanie przy wygranej i wczytywaniu kolejnego poziomu
 zaimplementowac smierc gracza -> cofniecie do menu glownego
