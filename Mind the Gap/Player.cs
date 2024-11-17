@@ -20,6 +20,11 @@ namespace Mind_the_Gap
             WALK_UP
         }
 
+        private enum DeathAnimations
+        {
+            EXPLODE
+        }
+
         private struct MovementMap
         {
             public MovementMap(Keys up, Keys down, Keys left, Keys right)
@@ -36,6 +41,8 @@ namespace Mind_the_Gap
             public Keys right;
         }
 
+        public Sprite Explosion { get; set; }
+
         public Vector2 GridPosition
         {
             get
@@ -50,7 +57,9 @@ namespace Mind_the_Gap
         }
         public int Health { get; private set; }
         public bool Alive { get; private set; }
+        public bool Dying { get; private set; }
 
+        public const float dieTime = 1.5f;
         private Vector2 velocity;
         private Vector2 targetPos;
         private Vector2 spawnPos;
@@ -60,6 +69,7 @@ namespace Mind_the_Gap
         private bool takeInputDown;
         private bool takeInputUp;
         private readonly AnimationManager<WalkAnimations> walkAnimationManager;
+        private readonly AnimationManager<DeathAnimations> deathAnimationManager;
         private readonly int gridCellSize;
         private readonly Vector2 gridSize;
         private readonly float step = 1;
@@ -80,6 +90,12 @@ namespace Mind_the_Gap
                 { WalkAnimations.WALK_UP,   new Animation(4, 7, 0.9f, size) },
             });
             walkAnimationManager.ActiveAnimation = WalkAnimations.IDLE_DOWN;
+
+            Explosion = new(position * stepSize, new Vector2(48, 48), visible: false);
+
+            deathAnimationManager = new(new Dictionary<DeathAnimations, Animation>() {
+                { DeathAnimations.EXPLODE, new Animation(7, 0, dieTime, new Vector2(48, 48)) }
+            });
 
             settings = new();
             settings = UserSettings.Load();
@@ -106,6 +122,7 @@ namespace Mind_the_Gap
             targetPos = spawnPos;
             Health = maxHealth;
             Alive = true;
+            Dying = false;
         }
 
         public override void Update(GameTime gameTime)
@@ -116,15 +133,25 @@ namespace Mind_the_Gap
             SetAnimation(prevVelocity);
 
             walkAnimationManager.Update(gameTime);
+
+            if(Dying)
+                deathAnimationManager.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, DestinationRect, walkAnimationManager.SourceRect, Color.White);
+            if(Visible)
+                spriteBatch.Draw(Texture, DestinationRect, walkAnimationManager.SourceRect, Color.White);
+
+            if(Explosion.Visible)
+                spriteBatch.Draw(Explosion.Texture, DestinationRect, deathAnimationManager.SourceRect, Color.White);
         }
 
         public void Restart()
         {
+            visible = true;
+            Explosion.Visible = false;
+            Dying = false;
             position = spawnPos;
             targetPos = spawnPos;
             walkAnimationManager.ActiveAnimation = WalkAnimations.IDLE_DOWN;
@@ -138,6 +165,17 @@ namespace Mind_the_Gap
                 // DIE
                 Debug.WriteLine("PLAYER IS DEAD");
                 Alive = false;
+            }
+        }
+
+        public void Explode()
+        {
+            if(!Dying)
+            {
+                visible = false;
+                deathAnimationManager.ActiveAnimation = DeathAnimations.EXPLODE;
+                Explosion.Visible = true;
+                Dying = true;
             }
         }
 

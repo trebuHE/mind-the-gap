@@ -6,6 +6,7 @@ namespace Mind_the_Gap
     internal class Sprite
     {
         public Texture2D Texture { get; set; }
+        public bool Visible { get => visible; set { visible = value; } }
         public Rectangle DestinationRect
         {
             get
@@ -21,12 +22,14 @@ namespace Mind_the_Gap
         protected Vector2 position;
         protected Vector2 size;
         protected readonly int scale = 4;
+        protected bool visible;
 
-        public Sprite(Vector2 position, Vector2 size, int scale = 4)
+        public Sprite(Vector2 position, Vector2 size, int scale = 4, bool visible = true)
         {
             this.position = position;
             this.size = size;
             this.scale = scale;
+            this.visible = visible;
         }
 
         public virtual void Update(GameTime gameTime)
@@ -35,7 +38,8 @@ namespace Mind_the_Gap
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, DestinationRect, Color.White);
+            if(visible)
+                spriteBatch.Draw(Texture, DestinationRect, Color.White);
         }
     }
 }

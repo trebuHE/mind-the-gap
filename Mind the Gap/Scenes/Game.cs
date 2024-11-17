@@ -80,6 +80,8 @@ namespace Mind_the_Gap.Scenes
             // textures
             Texture2D texture = contentManager.Load<Texture2D>("player_sprite_sheet");
             player.Texture = texture;
+            texture = contentManager.Load<Texture2D>("explosion");
+            player.Explosion.Texture = texture;
             texture = contentManager.Load<Texture2D>("player_heart_sheet");
             healthStateIcon.Texture = texture;
 
@@ -100,8 +102,9 @@ namespace Mind_the_Gap.Scenes
 
             if(currentLevel.Failed)
             {
-                player.DecrementHealth();
-                RestartLevel();
+                walkOnText.DisplayedText = "Wrong tile!";
+
+                Timer.Create(Player.dieTime, () => { player.DecrementHealth(); RestartLevel(); }, name: "restart");
             }
 
             if(!player.Alive)
@@ -137,9 +140,17 @@ namespace Mind_the_Gap.Scenes
 
             if(currentLevel.DrawAndUpdatePlayer)
             {
-                walkOnText.DisplayedText = "Walk on: ";
-                currentLevel.GameMap.Draw(spriteBatch, currentLevel.WalkableTile, WALKABLE_TILE_ICON_POS, WALKABLE_TILE_ICON_SIZE);
                 spriteBatch.Draw(healthStateIcon.Texture, healthStateIcon.DestinationRect, healthStateManager.SourceRect, Color.White);
+
+                if(!player.Dying)
+                {
+                    walkOnText.DisplayedText = "Walk on: ";
+                    currentLevel.GameMap.Draw(spriteBatch, currentLevel.WalkableTile, WALKABLE_TILE_ICON_POS, WALKABLE_TILE_ICON_SIZE);
+                }
+                else
+                {
+                    walkOnText.DisplayedText = "Wrong tile!";
+                }
             }
 
             walkOnText.Draw(spriteBatch);

@@ -76,6 +76,7 @@ namespace Mind_the_Gap
             {
                 // level failed
                 Debug.WriteLine("LEVEL FAILED");
+                player.Explode();
                 Failed = true;
             }
 

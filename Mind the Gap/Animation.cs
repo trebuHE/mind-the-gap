@@ -17,7 +17,7 @@ namespace Mind_the_Gap
         /// <param name="frames">number of frames in the animation</param>
         /// <param name="row">index of a row in a sprite sheet, starting at 0</param>
         /// <param name="frameSize">size of each animation frame</param>
-        /// <param name="loopTime">time in secondsafter which animation loops</param>
+        /// <param name="loopTime">time in seconds after which the animation loops</param>
         public Animation(int frames, int row, float loopTime, Vector2 frameSize)
         {
             this.frames = frames;

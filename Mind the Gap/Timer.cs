@@ -66,16 +66,23 @@ namespace Mind_the_Gap
         }
 
         /// <summary>
-        /// Creates a Timer and returns it
+        /// Creates a Timer and returns it.
         /// </summary>
+        /// <remarks>There can only be one Timer with a given <paramref name="name"/>!</remarks>
         /// <param name="time">in seconds</param>
-        /// <param name="callbackAction">function to be called when the time runs out</param>
+        /// <param name="callbackAction">function to be called when the time is up</param>
         /// <param name="looping">should the timer loop?</param>
-        /// <param name="name">to reference a specific Timer in static call</param>
-        /// <returns></returns>
+        /// <param name="name">to reference a specific Timer. Note: there can only be one Timer with a given <paramref name="name"/>! </param>
         public static Timer Create(float time, Action callbackAction, bool looping = false, string name = null)
         {
             Timer timer = new(time, callbackAction, looping, name);
+
+            foreach(var t in timers)
+            {
+                if(t.name == name)
+                    return null;
+            }
+
             timers.Add(timer);
             return timer;
         }
