@@ -44,7 +44,7 @@ namespace Mind_the_Gap
                 Color = clickColor;
 
             // hovering
-            if(mouseHitbox.Intersects(hitbox))
+            if(Active && mouseHitbox.Intersects(hitbox))
             {
                 Color = hoverColor;
 
