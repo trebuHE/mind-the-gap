@@ -203,7 +203,7 @@ namespace Mind_the_Gap
                     canMove = false;
                     takeInputLeft = false;
                 }
-                if(!Keyboard.GetState().IsKeyDown(movementMap.left))
+                if(Keyboard.GetState().IsKeyUp(movementMap.left))
                     takeInputLeft = true;
 
                 //up
@@ -214,7 +214,7 @@ namespace Mind_the_Gap
                     canMove = false;
                     takeInputUp = false;
                 }
-                if(!Keyboard.GetState().IsKeyDown(movementMap.up))
+                if(Keyboard.GetState().IsKeyUp(movementMap.up))
                     takeInputUp = true;
 
                 //down
@@ -225,7 +225,7 @@ namespace Mind_the_Gap
                     canMove = false;
                     takeInputDown = false;
                 }
-                if(!Keyboard.GetState().IsKeyDown(movementMap.down))
+                if(Keyboard.GetState().IsKeyUp(movementMap.down))
                     takeInputDown = true;
             }
         }
