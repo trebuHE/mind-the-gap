@@ -7,6 +7,7 @@ namespace Mind_the_Gap.Scenes
     internal class MainMenu : IScene
     {
         #region consts
+        private readonly Vector2 TITLE_TXT_POS = new Vector2(200, 120);
         private readonly Vector2 NEW_GAME_BUTT_POS = new Vector2(420, 350);
         private readonly Vector2 OPTIONS_BUTT_POS = new Vector2(420, 450);
         private readonly Vector2 EXIT_BUTT_POS = new Vector2(420, 550);
@@ -15,6 +16,7 @@ namespace Mind_the_Gap.Scenes
         private TextButton optionsButton;
         private TextButton exitButton;
         private readonly ContentManager contentManager;
+        private readonly Text title;
 
         public MainMenu(ContentManager contentManager)
         {
@@ -26,6 +28,7 @@ namespace Mind_the_Gap.Scenes
             optionsButton.OnClick += OptionsButton_OnClick;
             exitButton = new("EXIT", EXIT_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
             exitButton.OnClick += ExitButton_OnClick;
+            title = new("Mind the Gap", TITLE_TXT_POS, Color.White);
         }
 
         public void Load()
@@ -34,6 +37,8 @@ namespace Mind_the_Gap.Scenes
             newGameButton.Font = font;
             optionsButton.Font = font;
             exitButton.Font = font;
+            font = contentManager.Load<SpriteFont>("title_font");
+            title.Font = font;
         }
 
         public void Update(GameTime gameTime)
@@ -47,6 +52,7 @@ namespace Mind_the_Gap.Scenes
             newGameButton.Draw(spriteBatch);
             optionsButton.Draw(spriteBatch);
             exitButton.Draw(spriteBatch);
+            title.Draw(spriteBatch);
         }
 
         private void ExitButton_OnClick(object sender, System.EventArgs e)
