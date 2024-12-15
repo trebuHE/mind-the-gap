@@ -172,6 +172,7 @@ namespace Mind_the_Gap
         {
             if(!Dying)
             {
+                SoundEffects.Play(SoundEffects.Effects.EXPLOSION);
                 visible = false;
                 deathAnimationManager.ActiveAnimation = DeathAnimations.EXPLODE;
                 Explosion.Visible = true;

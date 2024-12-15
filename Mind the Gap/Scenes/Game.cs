@@ -195,11 +195,13 @@ namespace Mind_the_Gap.Scenes
 
         private void RestartTextButton_OnClick(object sender, System.EventArgs e)
         {
+            SoundEffects.Play(SoundEffects.Effects.CLICK);
             player.DecrementHealth();
             RestartLevel();
         }
         private void MainMenuTextButton_OnClick(object sender, System.EventArgs e)
         {
+            SoundEffects.Play(SoundEffects.Effects.CLICK);
             SceneManager.RemoveScene(this);
         }
     }

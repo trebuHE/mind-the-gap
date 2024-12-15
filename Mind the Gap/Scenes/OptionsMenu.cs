@@ -86,11 +86,13 @@ namespace Mind_the_Gap.Scenes
         }
         private void ResetBestRunButton_OnClick(object sender, System.EventArgs e)
         {
+            SoundEffects.Play(SoundEffects.Effects.CLICK);
             settings.HealthState = HealthState.NONE;
         }
 
         private void BackButton_OnClick(object sender, System.EventArgs e)
         {
+            SoundEffects.Play(SoundEffects.Effects.CLICK);
             // save settings
             settings.Save();
 
@@ -99,6 +101,7 @@ namespace Mind_the_Gap.Scenes
         }
         private void ArrowsButton_OnClick(object sender, System.EventArgs e)
         {
+            SoundEffects.Play(SoundEffects.Effects.CLICK);
             arrowsButton.Active = false;
             WASDButton.Active = true;
             settings.ActiveControlScheme = UserSettings.ControlScheme.ARROWS;
@@ -106,6 +109,7 @@ namespace Mind_the_Gap.Scenes
 
         private void WASDButton_OnClick(object sender, System.EventArgs e)
         {
+            SoundEffects.Play(SoundEffects.Effects.CLICK);
             WASDButton.Active = false;
             arrowsButton.Active = true;
             settings.ActiveControlScheme = UserSettings.ControlScheme.WASD;

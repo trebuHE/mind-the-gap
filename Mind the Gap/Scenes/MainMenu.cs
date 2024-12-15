@@ -90,16 +90,19 @@ namespace Mind_the_Gap.Scenes
 
         private void ExitButton_OnClick(object sender, System.EventArgs e)
         {
+            SoundEffects.Play(SoundEffects.Effects.CLICK);
             System.Environment.Exit(0);
         }
 
         private void OptionsButton_OnClick(object sender, System.EventArgs e)
         {
+            SoundEffects.Play(SoundEffects.Effects.CLICK);
             SceneManager.AddScene(new OptionsMenu(contentManager));
         }
 
         private void NewGameButton_OnClick(object sender, System.EventArgs e)
         {
+            SoundEffects.Play(SoundEffects.Effects.CLICK);
             SceneManager.AddScene(new Game(contentManager));
         }
     }
