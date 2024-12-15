@@ -93,6 +93,8 @@ namespace Mind_the_Gap.Scenes
             mainMenuTextButton.Font = gameFont;
         }
 
+        public void Focus() { }
+
         public void Update(GameTime gameTime)
         {
             currentLevel.Update(gameTime, player);

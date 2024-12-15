@@ -49,9 +49,7 @@ namespace Mind_the_Gap.Scenes
             });
             healthStateManager.ActiveAnimation = HealthState.NONE;
             healthStateIcon = new(HEALTH_STATE_ICON_POS, HEALTH_STATE_ICON_SIZE, scale: 2);
-            settings = UserSettings.Load();
-            if(settings.HealthState != HealthState.NONE)
-                healthStateManager.ActiveAnimation = settings.HealthState;
+            Focus();
         }
 
         public void Load()
@@ -66,6 +64,12 @@ namespace Mind_the_Gap.Scenes
             bestRun.Font = font;
             Texture2D texture = contentManager.Load<Texture2D>("player_heart_sheet");
             healthStateIcon.Texture = texture;
+        }
+
+        public void Focus()
+        {
+            settings = UserSettings.Load();
+            healthStateManager.ActiveAnimation = settings.HealthState;
         }
 
         public void Update(GameTime gameTime)

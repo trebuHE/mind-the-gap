@@ -10,6 +10,7 @@ namespace Mind_the_Gap.Scenes
         private readonly Vector2 BACK_BUTT_POS = new(600, 600);
         private readonly Vector2 WASD_BUTT_POS = new(500, 250);
         private readonly Vector2 ARROWS_BUTT_POS = new(640, 250);
+        private readonly Vector2 RESET_BEST_RUN_BUTT_POS = new(150, 350);
         private readonly Vector2 CTRL_SCHEME_TXT_POS = new(150, 250);
         #endregion
 
@@ -18,6 +19,7 @@ namespace Mind_the_Gap.Scenes
         private TextButton backButton;
         private TextButton WASDButton;
         private TextButton arrowsButton;
+        private TextButton resetBestRunButton;
         private Text controlSchemeText;
 
         public OptionsMenu(ContentManager contentManager)
@@ -47,7 +49,11 @@ namespace Mind_the_Gap.Scenes
             }
 
             controlSchemeText = new("Control scheme: ", CTRL_SCHEME_TXT_POS, Color.White);
+
+            resetBestRunButton = new("RESET BEST RUN", RESET_BEST_RUN_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
+            resetBestRunButton.OnClick += ResetBestRunButton_OnClick;
         }
+
 
         public void Load()
         {
@@ -58,13 +64,17 @@ namespace Mind_the_Gap.Scenes
             controlSchemeText.Font = font;
             WASDButton.Font = font;
             arrowsButton.Font = font;
+            resetBestRunButton.Font = font;
         }
+
+        public void Focus() { }
 
         public void Update(GameTime gameTime)
         {
             backButton.Update();
             WASDButton.Update();
             arrowsButton.Update();
+            resetBestRunButton.Update();
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -72,6 +82,11 @@ namespace Mind_the_Gap.Scenes
             controlSchemeText.Draw(spriteBatch);
             WASDButton.Draw(spriteBatch);
             arrowsButton.Draw(spriteBatch);
+            resetBestRunButton.Draw(spriteBatch);
+        }
+        private void ResetBestRunButton_OnClick(object sender, System.EventArgs e)
+        {
+            settings.HealthState = HealthState.NONE;
         }
 
         private void BackButton_OnClick(object sender, System.EventArgs e)

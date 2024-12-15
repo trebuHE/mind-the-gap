@@ -24,6 +24,7 @@ namespace Mind_the_Gap
         public static void RemoveScene(IScene scene)
         {
             scenes.Pop();
+            scenes.Peek().Focus();
         }
     }
 }
