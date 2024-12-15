@@ -42,6 +42,7 @@ namespace Mind_the_Gap.Scenes
         private Player player;
         private TextButton restartTextButton;
         private TextButton mainMenuTextButton;
+        private UserSettings settings;
 
         public Game(ContentManager contentManager)
         {
@@ -49,7 +50,7 @@ namespace Mind_the_Gap.Scenes
             levels = new List<Level>
             {
                 new("../../../data/levels/level_test/level_test_path.csv", "../../../data/levels/level_test/level_test_game.csv", 1f, new Vector2(3, 5), 17, contentManager),
-                new("../../../data/levels/level_test2/level_test2_path.csv", "../../../data/levels/level_test2/level_test2_game.csv", 1f, new Vector2(3, 5), 17, contentManager)
+               // new("../../../data/levels/level_test2/level_test2_path.csv", "../../../data/levels/level_test2/level_test2_game.csv", 1f, new Vector2(3, 5), 17, contentManager)
             };
             currentLevel = levels.First();
 
@@ -70,6 +71,7 @@ namespace Mind_the_Gap.Scenes
             mainMenuTextButton = new("Main menu", MAIN_MENU_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
             mainMenuTextButton.OnClick += MainMenuTextButton_OnClick;
             healthStateIcon = new(HEALTH_STATE_ICON_POS, HEALTH_STATE_ICON_SIZE, 2);
+            settings = UserSettings.Load();
         }
 
         public void Load()
@@ -163,14 +165,32 @@ namespace Mind_the_Gap.Scenes
         private void StartNextLevel()
         {
             levelNumber++;
-            currentLevel = levels[levelNumber - 1];
-            RestartLevel();
+            if(levelNumber > levels.Count)
+            {
+                EndGame();
+            }
+            else
+            {
+                currentLevel = levels[levelNumber - 1];
+                RestartLevel();
+            }
         }
 
         private void RestartLevel()
         {
             currentLevel.Load();
             player.Restart();
+        }
+
+        private void EndGame()
+        {
+            if(player.Health > (int)settings.HealthState)
+            {
+                settings.HealthState = (HealthState)(player.Health - 1);
+                settings.Save();
+            }
+
+            SceneManager.RemoveScene(this);
         }
 
         private void RestartTextButton_OnClick(object sender, System.EventArgs e)
