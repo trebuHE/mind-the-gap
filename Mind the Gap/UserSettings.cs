@@ -18,6 +18,7 @@ namespace Mind_the_Gap
         }
 
         public ControlScheme ActiveControlScheme { get; set; }
+        public Scenes.HealthState HealthState { get; set; }
 
         private const string PATH = "settings.json";
 

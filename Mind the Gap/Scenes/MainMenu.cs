@@ -1,22 +1,31 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace Mind_the_Gap.Scenes
 {
     internal class MainMenu : IScene
     {
         #region consts
-        private readonly Vector2 TITLE_TXT_POS = new Vector2(200, 120);
-        private readonly Vector2 NEW_GAME_BUTT_POS = new Vector2(420, 350);
-        private readonly Vector2 OPTIONS_BUTT_POS = new Vector2(420, 450);
-        private readonly Vector2 EXIT_BUTT_POS = new Vector2(420, 550);
+        private static readonly Vector2 TITLE_TXT_POS = new Vector2(200, 120);
+        private static readonly Vector2 NEW_GAME_BUTT_POS = new Vector2(420, 350);
+        private static readonly Vector2 OPTIONS_BUTT_POS = new Vector2(420, 450);
+        private static readonly Vector2 EXIT_BUTT_POS = new Vector2(420, 550);
+        private static readonly Vector2 BEST_RUN_TXT_POS = new Vector2(320, 700);
+        private static readonly Vector2 HEALTH_STATE_ICON_POS = new Vector2(515, 685);
+        private static readonly Vector2 HEALTH_STATE_ICON_SIZE = new(32, 32);
+        private static readonly Vector2 HEART_ICON_SIZE = new(16, 16);
         #endregion
         private TextButton newGameButton;
         private TextButton optionsButton;
         private TextButton exitButton;
+        private Sprite healthStateIcon;
+        private AnimationManager<HealthState> healthStateManager;
+        private UserSettings settings;
         private readonly ContentManager contentManager;
         private readonly Text title;
+        private readonly Text bestRun;
 
         public MainMenu(ContentManager contentManager)
         {
@@ -29,6 +38,20 @@ namespace Mind_the_Gap.Scenes
             exitButton = new("EXIT", EXIT_BUTT_POS, Color.White, Color.LightGray, Color.Gray);
             exitButton.OnClick += ExitButton_OnClick;
             title = new("Mind the Gap", TITLE_TXT_POS, Color.White);
+            bestRun = new("Best run: -", BEST_RUN_TXT_POS, Color.White);
+
+            healthStateManager = new(new Dictionary<HealthState, Animation>() {
+                {HealthState.FULL,           new Animation(1, 0, HEART_ICON_SIZE) },
+                {HealthState.THREE_QUARTERS, new Animation(1, 1, HEART_ICON_SIZE) },
+                {HealthState.HALF,           new Animation(1, 2, HEART_ICON_SIZE) },
+                {HealthState.ONE_QUARTER,    new Animation(1, 3, HEART_ICON_SIZE) },
+                {HealthState.NONE,           new Animation(1, 4, HEART_ICON_SIZE) },
+            });
+            healthStateManager.ActiveAnimation = HealthState.NONE;
+            healthStateIcon = new(HEALTH_STATE_ICON_POS, HEALTH_STATE_ICON_SIZE, scale: 2);
+            settings = UserSettings.Load();
+            if(settings.HealthState != HealthState.NONE)
+                healthStateManager.ActiveAnimation = settings.HealthState;
         }
 
         public void Load()
@@ -39,6 +62,10 @@ namespace Mind_the_Gap.Scenes
             exitButton.Font = font;
             font = contentManager.Load<SpriteFont>("title_font");
             title.Font = font;
+            font = contentManager.Load<SpriteFont>("game_font");
+            bestRun.Font = font;
+            Texture2D texture = contentManager.Load<Texture2D>("player_heart_sheet");
+            healthStateIcon.Texture = texture;
         }
 
         public void Update(GameTime gameTime)
@@ -53,6 +80,8 @@ namespace Mind_the_Gap.Scenes
             optionsButton.Draw(spriteBatch);
             exitButton.Draw(spriteBatch);
             title.Draw(spriteBatch);
+            bestRun.Draw(spriteBatch);
+            spriteBatch.Draw(healthStateIcon.Texture, healthStateIcon.DestinationRect, healthStateManager.SourceRect, Color.White);
         }
 
         private void ExitButton_OnClick(object sender, System.EventArgs e)
