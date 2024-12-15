@@ -94,3 +94,21 @@
 /processorParam:TextureFormat=Compressed
 /build:title_font.spritefont
 
+#begin walk_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:walk_1.wav
+
+#begin walk_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:walk_2.wav
+
+#begin win.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:win.wav
+

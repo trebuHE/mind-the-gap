@@ -188,6 +188,7 @@ namespace Mind_the_Gap
                 //right
                 if(takeInputRight && Keyboard.GetState().IsKeyDown(movementMap.right) && GridPosition.X < gridSize.X - 1)
                 {
+                    SoundEffects.Play(SoundEffects.Effects.WALK);
                     prevGridPos.X += 1;
                     GridPosition = prevGridPos;
                     canMove = false;
@@ -199,6 +200,7 @@ namespace Mind_the_Gap
                 //left
                 if(takeInputLeft && Keyboard.GetState().IsKeyDown(movementMap.left) && GridPosition.X > 0)
                 {
+                    SoundEffects.Play(SoundEffects.Effects.WALK);
                     prevGridPos.X -= 1;
                     GridPosition = prevGridPos;
                     canMove = false;
@@ -210,6 +212,7 @@ namespace Mind_the_Gap
                 //up
                 if(takeInputUp && Keyboard.GetState().IsKeyDown(movementMap.up) && GridPosition.Y > 0)
                 {
+                    SoundEffects.Play(SoundEffects.Effects.WALK);
                     prevGridPos.Y -= 1;
                     GridPosition = prevGridPos;
                     canMove = false;
@@ -221,6 +224,7 @@ namespace Mind_the_Gap
                 //down
                 if(takeInputDown && Keyboard.GetState().IsKeyDown(movementMap.down) && GridPosition.Y < gridSize.Y - 1)
                 {
+                    SoundEffects.Play(SoundEffects.Effects.WALK);
                     prevGridPos.Y += 1;
                     GridPosition = prevGridPos;
                     canMove = false;

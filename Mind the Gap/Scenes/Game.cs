@@ -50,7 +50,7 @@ namespace Mind_the_Gap.Scenes
             levels = new List<Level>
             {
                 new("../../../data/levels/level_test/level_test_path.csv", "../../../data/levels/level_test/level_test_game.csv", 1f, new Vector2(3, 5), 17, contentManager),
-               // new("../../../data/levels/level_test2/level_test2_path.csv", "../../../data/levels/level_test2/level_test2_game.csv", 1f, new Vector2(3, 5), 17, contentManager)
+                new("../../../data/levels/level_test2/level_test2_path.csv", "../../../data/levels/level_test2/level_test2_game.csv", 1f, new Vector2(3, 5), 17, contentManager)
             };
             currentLevel = levels.First();
 
@@ -165,6 +165,8 @@ namespace Mind_the_Gap.Scenes
         private void StartNextLevel()
         {
             levelNumber++;
+            SoundEffects.Play(SoundEffects.Effects.WIN);
+
             if(levelNumber > levels.Count)
             {
                 EndGame();

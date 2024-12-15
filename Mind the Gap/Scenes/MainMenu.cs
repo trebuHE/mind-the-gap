@@ -12,8 +12,8 @@ namespace Mind_the_Gap.Scenes
         private static readonly Vector2 NEW_GAME_BUTT_POS = new Vector2(420, 350);
         private static readonly Vector2 OPTIONS_BUTT_POS = new Vector2(420, 450);
         private static readonly Vector2 EXIT_BUTT_POS = new Vector2(420, 550);
-        private static readonly Vector2 BEST_RUN_TXT_POS = new Vector2(320, 700);
-        private static readonly Vector2 HEALTH_STATE_ICON_POS = new Vector2(515, 685);
+        private static readonly Vector2 BEST_RUN_TXT_POS = new Vector2(420, 700);
+        private static readonly Vector2 HEALTH_STATE_ICON_POS = new Vector2(615, 685);
         private static readonly Vector2 HEALTH_STATE_ICON_SIZE = new(32, 32);
         private static readonly Vector2 HEART_ICON_SIZE = new(16, 16);
         #endregion
@@ -91,7 +91,7 @@ namespace Mind_the_Gap.Scenes
         private void ExitButton_OnClick(object sender, System.EventArgs e)
         {
             SoundEffects.Play(SoundEffects.Effects.CLICK);
-            System.Environment.Exit(0);
+            Timer.Create(0.15f, () => System.Environment.Exit(0));
         }
 
         private void OptionsButton_OnClick(object sender, System.EventArgs e)

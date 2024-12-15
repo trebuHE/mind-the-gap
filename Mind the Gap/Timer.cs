@@ -79,7 +79,7 @@ namespace Mind_the_Gap
 
             foreach(var t in timers)
             {
-                if(t.name == name)
+                if(t.name == name && name != null)
                     return null;
             }
 
