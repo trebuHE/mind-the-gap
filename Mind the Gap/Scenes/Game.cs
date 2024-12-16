@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -49,6 +50,9 @@ namespace Mind_the_Gap.Scenes
             this.contentManager = contentManager;
             levels = new List<Level>
             {
+
+                new("../../../data/levels/level_1/level_1_path.csv", "../../../data/levels/level_1/level_1_game.csv", 2f, new Vector2(3, 6), 16, contentManager),
+                new("../../../data/levels/level_2/level_2_path.csv", "../../../data/levels/level_2/level_2_game.csv", 3f, new Vector2(3, 6), 16, contentManager),
                 new("../../../data/levels/level_test/level_test_path.csv", "../../../data/levels/level_test/level_test_game.csv", 1f, new Vector2(3, 5), 17, contentManager),
                 new("../../../data/levels/level_test2/level_test2_path.csv", "../../../data/levels/level_test2/level_test2_game.csv", 1f, new Vector2(3, 5), 17, contentManager)
             };
@@ -121,6 +125,12 @@ namespace Mind_the_Gap.Scenes
             levelNumberText.DisplayedText = "Level: " + levelNumber;
             mainMenuTextButton.Update();
             healthStateManager.ActiveAnimation = (HealthState)player.Health - 1;
+
+            /***************DEBUG**************/
+            if(Keyboard.GetState().IsKeyDown(Keys.L))
+                Timer.Create(0.5f, () => StartNextLevel(), name: "debug next level");
+            /***************DEBUG**************/
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
