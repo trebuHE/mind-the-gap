@@ -147,13 +147,13 @@ namespace Mind_the_Gap
                 spriteBatch.Draw(Explosion.Texture, DestinationRect, deathAnimationManager.SourceRect, Color.White);
         }
 
-        public void Restart()
+        public void Restart(Vector2 spawnPos)
         {
             visible = true;
             Explosion.Visible = false;
             Dying = false;
-            position = spawnPos;
-            targetPos = spawnPos;
+            position = spawnPos * gridCellSize;
+            targetPos = spawnPos * gridCellSize;
             walkAnimationManager.ActiveAnimation = WalkAnimations.IDLE_DOWN;
         }
 
