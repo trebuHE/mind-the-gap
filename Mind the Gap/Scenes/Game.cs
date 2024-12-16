@@ -53,8 +53,11 @@ namespace Mind_the_Gap.Scenes
                 new("../../../data/levels/level_1/level_1_path.csv", "../../../data/levels/level_1/level_1_game.csv", 2f, new Vector2(3, 6), 16, contentManager),
                 new("../../../data/levels/level_2/level_2_path.csv", "../../../data/levels/level_2/level_2_game.csv", 3f, new Vector2(3, 6), 16, contentManager),
                 new("../../../data/levels/level_3/level_3_path.csv", "../../../data/levels/level_3/level_3_game.csv", 3f, new Vector2(3, 6), 16, contentManager),
-                new("../../../data/levels/level_4/level_4_path.csv", "../../../data/levels/level_4/level_4_game.csv", 4f, new Vector2(3, 5), 16, contentManager),
-                new("../../../data/levels/level_5/level_5_path.csv", "../../../data/levels/level_5/level_5_game.csv", 5f, new Vector2(3, 3), 16, contentManager),
+                new("../../../data/levels/level_4/level_4_path.csv", "../../../data/levels/level_4/level_4_game.csv", 4f, new Vector2(3, 6), 16, contentManager),
+                new("../../../data/levels/level_5/level_5_path.csv", "../../../data/levels/level_5/level_5_game.csv", 5f, new Vector2(3, 5), 16, contentManager),
+                new("../../../data/levels/level_6/level_6_path.csv", "../../../data/levels/level_6/level_6_game.csv", 5f, new Vector2(3, 6), 16, contentManager),
+                new("../../../data/levels/level_7/level_7_path.csv", "../../../data/levels/level_7/level_7_game.csv", 5f, new Vector2(3, 10), 17, contentManager),
+                new("../../../data/levels/level_8/level_8_path.csv", "../../../data/levels/level_8/level_8_game.csv", 8f, new Vector2(2, 6), 17, contentManager),
             };
             currentLevel = levels.First();
 
